@@ -1,0 +1,40 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+<!--{% load socialaccount %}
+{% load account socialaccount %}-->
+{% load i18n %}
+
+{% block head_title %}Sign In{% endblock %}
+
+{% block auth %}
+<!--<h4 class="auth-txt">Member Sign In</h4>
+<p>Don't have an account? <a class="auth-lnk" href="{% url 'account_signup' %}">Create a free account</a>
+</p>
+
+
+<div class="login-form-container">
+
+
+  <a class="btn btn-outline-secondary btn-sm btn-block auth-txt" href="{% provider_login_url "google" %}"><img src="https://img.icons8.com/color/20/000000/google-logo.png"> &nbsp; Sign in with Google</a>
+  <a class="btn btn-outline-primary btn-sm btn-block auth-txt" href="{% provider_login_url "facebook" %}"><img src="https://img.icons8.com/fluent/20/000000/facebook-new.png"/> &nbsp; Sign in with Facebook</a>
+
+<div class="hr-or"></div>
+
+-->
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form | crispy }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="btn btn-outline-secondary btn-sm btn-block auth-txt btn-custom-log" type="submit">Sign In</button>
+  <!--<p class=""><a class="auth-lnk auth-txt at-80" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>-->
+</form>
+
+
+</div>
+
+
+
+{% endblock %}

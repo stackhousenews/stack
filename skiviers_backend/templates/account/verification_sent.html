@@ -1,0 +1,18 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% load account socialaccount %}
+{% load i18n %}
+
+{% block head_title %}Verify Your E-mail Address{% endblock %}
+
+{% block auth %}
+<h4 class="auth-txt">Verify Your E-mail Address</h4>
+
+<p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+
+<form action="{% url 'entry_point' %}">
+    <input  class="btn btn-sm btn-outline-secondary" type="submit" value="Home" />
+</form>
+
+{% endblock %}

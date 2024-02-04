@@ -1,0 +1,23 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% load account socialaccount %}
+{% load i18n %}
+
+{% block head_title %}Sign Out{% endblock %}
+
+{% block auth %}
+
+<p class="auth-txt">{% trans 'Are you sure you wish to sign out?' %}</p>
+
+<form class="auth-email" method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button class="btn btn-sm btn-outline-secondary" type="submit">{% trans 'Sign Out' %}</button>
+</form>
+
+
+
+{% endblock %}

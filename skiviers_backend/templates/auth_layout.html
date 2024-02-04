@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .auth-box {
+        border: 1px solid lightgrey;
+        border-radius: 0px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left:25px;
+        padding-right:25px;
+        width: 400px;
+        margin: auto;
+    }
+
+    .login-form-container {
+        width: 300px;
+        margin: auto;
+    }
+
+    .registration-form-container {
+        width: 400px;
+        margin: auto;
+    }
+
+    .outer-area {
+        margin-top: 100px;
+    }
+
+    .login label {
+    display: none;
+    }
+
+    .login input {
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-size:90%;
+      border-radius: 0;
+    }
+
+    .btn.btn-custom-log {
+  border-radius: 0;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
+}
+
+    .auth-email {
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-size:90%;
+    }
+
+    .verified {
+      color:#28a745 !important;
+    }
+
+    .login input::placeholder {
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-size:90%;
+    }
+
+    .auth-txt {
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    .at-90 {
+      font-size:90%;
+    }
+
+    .at-80 {
+      font-size:80%;
+    }
+
+    .alert {
+      font-size:80%;
+    }
+
+    div.hr-or {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+      text-align: center;
+      height: 0px;
+      line-height: 0px;
+    }
+
+    div.hr-or:before {
+      content: 'or';
+      background-color: #fff;
+      font-family:'Roboto', sens-serif;
+      padding: 0px 10px 0px 10px;
+      text-align: center;
+    }
+
+    div.hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+      text-align: center;
+      height: 0px;
+      line-height: 0px;
+    }
+
+    .hr-title {
+      background-color: #fff;
+    }
+
+    .auth-lnk {
+      text-decoration:none !important;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="auth-email">
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+<div class="outer-area">
+    <div class="auth-box text-center">
+
+      <h1 style="font-family: Avenir, Helvetica, Arial, sans-serif;"><strong>Web3</strong>Research</h1>
+
+        {% block auth %}
+        {% endblock %}
+    </div>
+</div>
+{% block extra_body %}
+{% endblock %}
+{% endblock %}
