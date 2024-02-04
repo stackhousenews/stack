@@ -1,1 +1,1 @@
-web: gunicorn skiviers.wsgi --timeout 1200
+web: gunicorn skiviers_backend.wsgi --timeout 1200
