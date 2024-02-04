@@ -74,6 +74,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://stackhouse.news"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
