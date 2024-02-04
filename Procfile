@@ -1,0 +1,1 @@
+web: gunicorn mainapp.wsgi --timeout 1200
