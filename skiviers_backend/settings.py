@@ -72,10 +72,17 @@ REST_FRAMEWORK = {
     )
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://stackhouse.news"
-]
+#CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:5173",
+#    "https://stackhouse.news"
+#]
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+       'https://stackhouse.news',
+       'https://stackhouse.s3.amazonaws.com'
+)
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
