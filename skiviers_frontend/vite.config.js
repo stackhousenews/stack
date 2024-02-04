@@ -11,7 +11,7 @@ export default defineConfig({
         main: path.resolve('./src/main.js'),
       },
       output: {
-        dir: '../staticfiles/assets/',
+        dir: '../static/',
         entryFileNames: 'main.js',
       },
     },
