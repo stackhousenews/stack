@@ -93,9 +93,17 @@ else:
 
 CORS_ORIGIN_ALLOW_ALL = False
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
-]
+if DEBUG:
+
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:5173",
+    ]
+
+else:
+
+    CSRF_TRUSTED_ORIGINS = [
+        "https://stackhouse.news",
+    ]    
 
 INSTALLED_APPS = [
     'django.contrib.admin',

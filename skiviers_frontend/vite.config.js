@@ -13,6 +13,7 @@ export default defineConfig({
       output: {
         dir: '../skiviers_backend/static/',
         entryFileNames: 'bundle.js',
+        assetFileNames: 'bundle.css',
       },
     },
   },
