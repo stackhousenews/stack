@@ -11,8 +11,8 @@ export default defineConfig({
         main: path.resolve('./src/main.js'),
       },
       output: {
-        dir: '../skiviers_backend/static/',
-        entryFileNames: 'main.js',
+        dir: '../skiviers_backend/static/js/',
+        entryFileNames: 'bundle.js',
       },
     },
   },
