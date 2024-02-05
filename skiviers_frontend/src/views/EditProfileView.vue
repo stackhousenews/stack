@@ -31,6 +31,9 @@
                         <input type="file" ref="file">
                     </div>
 
+
+
+
                     <template v-if="errors.length > 0">
                         <div class="bg-red-300 text-white rounded-lg p-6">
                             <p v-for="error in errors" v-bind:key="error">{{ error }}</p>

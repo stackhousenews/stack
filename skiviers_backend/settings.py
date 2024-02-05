@@ -56,6 +56,11 @@ WEBSITE_URL = config('WEBSITE_URL')
 AUTH_USER_MODEL = 'account.User'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=180),
@@ -72,10 +77,19 @@ REST_FRAMEWORK = {
     )
 }
 
-CORS_ALLOWED_ORIGINS = [
-       'https://stackhouse.news',
-       'https://stackhouse.s3.amazonaws.com'
-]
+if DEBUG:
+
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:5173',
+        'http://127.0.0.1:8000'
+    ]    
+
+else:
+
+    CORS_ALLOWED_ORIGINS = [
+        'https://stackhouse.news',
+        'https://stackhouse.s3.amazonaws.com'
+    ]
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -213,10 +227,10 @@ if USE_S3:
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'hello_django.storage_backends.PublicMediaStorage'
+    DEFAULT_FILE_STORAGE = 'skiviers_backend.storage_backends.PublicMediaStorage'
     # s3 private media settings
     PRIVATE_MEDIA_LOCATION = 'private'
-    PRIVATE_FILE_STORAGE = 'hello_django.storage_backends.PrivateMediaStorage'
+    PRIVATE_FILE_STORAGE = 'skiviers_backend.storage_backends.PrivateMediaStorage'
 
 else:
     pass

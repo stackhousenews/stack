@@ -14,7 +14,7 @@
 
         <div class="p-4 border-t border-gray-100 flex justify-between">
             <label class="inline-block py-4 px-6 bg-gray-600 text-white rounded-lg">
-                <input type="file" ref="file" @change="onFileChange">
+                <input class="attach-image-custom" type="file" ref="file" @change="onFileChange">
                 Attach image
             </label>
 
@@ -41,6 +41,11 @@ export default {
     },
 
     methods: {
+        onFileChange(e) {
+            const file = e.target.files[0];
+            this.url = URL.createObjectURL(file);
+        },
+
         submitForm() {
             console.log('submitForm', this.body)
 

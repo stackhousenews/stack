@@ -76,7 +76,7 @@
 </template>
 
 <style>
-input[type="file"] {
+.attach-image-custom {
     display: none;
 }
 
