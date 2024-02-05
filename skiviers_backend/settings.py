@@ -234,7 +234,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'skiviers_backend', 'static'),
 )
 
 
