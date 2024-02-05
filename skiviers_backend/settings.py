@@ -85,7 +85,12 @@ if DEBUG:
     CORS_ALLOWED_ORIGINS = [
         'http://localhost:5173',
         'http://127.0.0.1:8000'
-    ]    
+    ]
+
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:5173",
+    ]
+    
 
 else:
 
@@ -94,19 +99,11 @@ else:
         'https://stackhouse.s3.amazonaws.com'
     ]
 
-CORS_ORIGIN_ALLOW_ALL = False
-
-if DEBUG:
-
-    CSRF_TRUSTED_ORIGINS = [
-        "http://localhost:5173",
-    ]
-
-else:
-
     CSRF_TRUSTED_ORIGINS = [
         "https://stackhouse.news",
     ]    
+
+CORS_ORIGIN_ALLOW_ALL = False
 
 INSTALLED_APPS = [
     'django.contrib.admin',
