@@ -1,7 +1,7 @@
 from .models import Notification
 
 from post.models import Post
-from account.models import FriendshipRequest
+from user_account.models import FriendshipRequest
 
 # create_notification(request, 'post_like', 'lskjf-j12l3-jlas-jdfa', 'lskjf-j12l3-jlas-jdfa')
 

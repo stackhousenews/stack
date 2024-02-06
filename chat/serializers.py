@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from account.serializers import UserSerializer
+from user_account.serializers import UserSerializer
 
 from .models import Conversation, ConversationMessage
 

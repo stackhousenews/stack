@@ -11,11 +11,9 @@
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<!--
+
 <div class="login-form-container">
-  <a class="btn btn-outline-secondary btn-sm btn-block auth-txt" href="{% provider_login_url "google" %}"><img src="https://img.icons8.com/color/20/000000/google-logo.png"> &nbsp; Sign in with Google</a>
-  <a class="btn btn-outline-primary btn-sm btn-block auth-txt" href="{% provider_login_url "facebook" %}"><img src="https://img.icons8.com/fluent/20/000000/facebook-new.png"/> &nbsp; Sign in with Facebook</a>
--->
+  <a class="btn btn-outline-secondary btn-sm btn-block auth-txt" href="{% provider_login_url "twitter" %}"><img src="https://img.icons8.com/color/20/000000/twitter-logo.png"> &nbsp; Sign in with X/Twitter</a>
 
 <div class="hr-or"></div>
   <form class="signup login auth-email" id="signup_form" method="post" action="{% url 'account_signup' %}">

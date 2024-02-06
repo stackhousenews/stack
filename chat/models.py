@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 from django.utils.timesince import timesince
 
-from account.models import User
+from user_account.models import User
 
 
 class Conversation(models.Model):

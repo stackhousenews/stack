@@ -3,8 +3,8 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
-from account.models import User, FriendshipRequest
-from account.serializers import UserSerializer
+from user_account.models import User, FriendshipRequest
+from user_account.serializers import UserSerializer
 from notification.utils import create_notification
 
 from .forms import PostForm, AttachmentForm

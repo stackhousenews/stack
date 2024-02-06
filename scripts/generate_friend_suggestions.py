@@ -14,7 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "skiviers_backend.settings")
 django.setup()
 
 
-from account.models import User
+from user_account.models import User
 
 
 users = User.objects.all()

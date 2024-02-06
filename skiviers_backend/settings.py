@@ -42,18 +42,80 @@ else:
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast = Csv())
 WEBSITE_URL = config('WEBSITE_URL')
 
-#STORAGES = {
-#    "default": {
-#        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-#    },
-#    "staticfiles": {
-#        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#    },
-#}
+if DEBUG:
 
-# Application definition
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:5173',
+        'http://127.0.0.1:8000'
+    ]
 
-AUTH_USER_MODEL = 'account.User'
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:5173",
+    ]
+    
+else:
+
+    CORS_ALLOWED_ORIGINS = [
+        'https://stackhouse.news',
+        'https://stackhouse.s3.amazonaws.com'
+    ]
+
+    CSRF_TRUSTED_ORIGINS = [
+        "https://stackhouse.news",
+    ]    
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+# django.contrib.sites
+SITE_ID = 1
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'storages',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #'allauth.socialaccount.providers.google',
+    #'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'crispy_forms',
+    'crispy_tailwind',
+
+    'user_account',
+    'post',
+    'chat',
+    'notification',
+
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+]
+
+ROOT_URLCONF = 'skiviers_backend.urls'
+
+AUTH_USER_MODEL = 'user_account.User'
+
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config('EMAIL_HOST')
@@ -80,69 +142,8 @@ REST_FRAMEWORK = {
 if not DEBUG:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer']
 
-if DEBUG:
 
-    CORS_ALLOWED_ORIGINS = [
-        'http://localhost:5173',
-        'http://127.0.0.1:8000'
-    ]
 
-    CSRF_TRUSTED_ORIGINS = [
-        "http://localhost:5173",
-    ]
-    
-
-else:
-
-    CORS_ALLOWED_ORIGINS = [
-        'https://stackhouse.news',
-        'https://stackhouse.s3.amazonaws.com'
-    ]
-
-    CSRF_TRUSTED_ORIGINS = [
-        "https://stackhouse.news",
-    ]    
-
-CORS_ORIGIN_ALLOW_ALL = False
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
-    'storages',
-    'allauth',
-    #'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.twitter',
-    
-    'account',
-    'post',
-    'chat',
-    'notification',
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
-]
-
-ROOT_URLCONF = 'skiviers_backend.urls'
 
 TEMPLATES = [
     {
@@ -159,6 +160,21 @@ TEMPLATES = [
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+#    'google': {
+#        # For each OAuth based provider, either add a ``SocialApp``
+#        # (``socialaccount`` app) containing the required client
+#        # credentials, or list them here:
+#        'APP': {
+#            'client_id': '123',
+#            'secret': '456',
+#            'key': ''
+#        }
+#    }
+}
+
+
 
 WSGI_APPLICATION = 'skiviers_backend.wsgi.application'
 
@@ -266,6 +282,39 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'skiviers_backend', 'static'),
 )
 
+
+
+# django-allauth
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+# Add the 'allauth' backend to AUTHENTICATION_BACKEND and keep default ModelBackend
+AUTHENTICATION_BACKENDS = [ 'django.contrib.auth.backends.ModelBackend',
+                           'allauth.account.auth_backends.AuthenticationBackend']
+# Custom allauth settings
+# Use email as the primary identifier
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+
+# Make email verification mandatory to avoid junk email accounts
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Eliminate need to provide username, as it's a very old practice
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = LOGIN_REDIRECT_URL
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "Stackhouse - "
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals(), staticfiles=False)

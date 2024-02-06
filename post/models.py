@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.timesince import timesince
 
-from account.models import User
+from user_account.models import User
 
 
 class Like(models.Model):
