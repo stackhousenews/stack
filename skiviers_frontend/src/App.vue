@@ -93,6 +93,3 @@
     }
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Eczar&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Oswald:wght@200..700&family=Playfair+Display:wght@600&display=swap')
-</style>
