@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center justify-between">
                 <div class="menu-left">
-                    <a href="#" class="text-4xl" style="font-family: 'Fraunces', serif; color: #003594;">STACKHOUSE</a>
+                    <a href="#" class="text-4xl" style="font-family: 'Oswald', serif; color: #003594;">STACKHOUSE</a>
                 </div>
 
                 <div class="menu-center flex space-x-12" v-if="userStore.user.isAuthenticated">
@@ -40,8 +40,8 @@
                     </template>
 
                     <template v-else>
-                        <RouterLink to="/login" class="mr-4 py-4 px-6 bg-gray-600 text-white rounded-lg">Log in</RouterLink>
-                        <RouterLink to="/signup" class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</RouterLink>
+                        <v-btn :href="loginLink" class="mr-4 bg-gray-600 rounded-lg">Log In</v-btn>
+                        <v-btn :href="signupLink" class="mr-4 bg-gray-600 rounded-lg">Sign Up</v-btn>
                     </template>
                 </div>
             </div>
@@ -65,9 +65,13 @@
             
             document.title = "Stackhouse | Scaling Truth, Scoping Tomorrow"
             const userStore = useUserStore()
+            const loginLink = import.meta.env.VITE_API_URL && '/accounts/login/'
+            const signupLink = import.meta.env.VITE_API_URL && '/accounts/signup/'
 
             return {
-                userStore
+                userStore,
+                loginLink,
+                signupLink
             }
         },
 
@@ -90,5 +94,5 @@
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Eczar&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Playfair+Display:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eczar&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Oswald:wght@200..700&family=Playfair+Display:wght@600&display=swap')
 </style>

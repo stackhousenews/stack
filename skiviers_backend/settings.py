@@ -51,6 +51,7 @@ if DEBUG:
 
     CSRF_TRUSTED_ORIGINS = [
         "http://localhost:5173",
+        'http://127.0.0.1:8000'
     ]
     
 else:
@@ -80,6 +81,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+
     'corsheaders',
     'storages',
     'allauth',
@@ -89,7 +91,7 @@ INSTALLED_APPS = [
     #'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
     'crispy_forms',
-    'crispy_tailwind',
+    'crispy_bootstrap4',
 
     'user_account',
     'post',
@@ -162,16 +164,16 @@ TEMPLATES = [
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-#    'google': {
-#        # For each OAuth based provider, either add a ``SocialApp``
-#        # (``socialaccount`` app) containing the required client
-#        # credentials, or list them here:
-#        'APP': {
-#            'client_id': '123',
-#            'secret': '456',
-#            'key': ''
-#        }
-#    }
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
 }
 
 
@@ -282,8 +284,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'skiviers_backend', 'static'),
 )
 
-
-
 # django-allauth
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/"
@@ -312,9 +312,9 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = LOGIN_REDIRECT_URL
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Stackhouse - "
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
-CRISPY_TEMPLATE_PACK = "tailwind"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals(), staticfiles=False)
