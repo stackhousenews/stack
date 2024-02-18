@@ -11,6 +11,16 @@ from .forms import SignupForm, ProfileForm
 from .models import User, FriendshipRequest
 from .serializers import UserSerializer, FriendshipRequestSerializer
 
+@api_view(['GET'])
+def is_authenticated(request):
+    if request.user.is_authenticated:
+        message = request.user.email
+    else:
+        message = 'no'
+    return JsonResponse({
+        'message': message
+    })
+
 
 @api_view(['GET'])
 def me(request):

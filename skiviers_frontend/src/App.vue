@@ -63,11 +63,15 @@
 
     export default {
         setup() {
-            
+
+            axios
+                .get('/api/is_authenticated/')
+                .then(response => (console.log(response)))
+                
             document.title = "Stackhouse | Scaling Truth, Scoping Tomorrow"
             const userStore = useUserStore()
-            const loginLink = import.meta.env.VITE_API_URL && '/accounts/login/'
-            const signupLink = import.meta.env.VITE_API_URL && '/accounts/signup/'
+            const loginLink = import.meta.env.VITE_API_URL && 'accounts/login/'
+            const signupLink = import.meta.env.VITE_API_URL && 'accounts/signup/'
 
             return {
                 userStore,
