@@ -12,11 +12,12 @@ export const useUserStore = defineStore({
             email: null,
             access: null,
             refresh: null,
-            avatar: null
+            avatar: null,
         }
     }),
 
     actions: {
+
         initStore() {
             console.log('initStore', localStorage.getItem('user.access'))
 
@@ -49,6 +50,8 @@ export const useUserStore = defineStore({
 
             console.log('user.access: ', localStorage.getItem('user.access'))
         },
+
+
 
         removeToken() {
             console.log('removeToken')
@@ -86,15 +89,13 @@ export const useUserStore = defineStore({
         },
 
         refreshToken() {
-            axios.post('/api/refresh/', {
-                refresh: this.user.refresh
-            })
+            axios.get('/api/is_authenticated/')
                 .then((response) => {
-                    this.user.access = response.data.access
+                    this.user.access = response.data.message
 
-                    localStorage.setItem('user.access', response.data.access)
+                    localStorage.setItem('user.access', response.data.message)
 
-                    axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access
+                    axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.message
                 })
                 .catch((error)=>{
                     console.log(error)
@@ -102,5 +103,6 @@ export const useUserStore = defineStore({
                     this.removeToken()
                 })
         },
+
     }
 })

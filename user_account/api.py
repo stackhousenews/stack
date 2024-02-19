@@ -16,7 +16,7 @@ def is_authenticated(request):
     if request.user.is_authenticated:
         message = request.user.email
     else:
-        message = 'no'
+        message = None
     return JsonResponse({
         'message': message
     })
