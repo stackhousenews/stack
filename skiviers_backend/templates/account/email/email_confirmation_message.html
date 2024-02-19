@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Eczar&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Oswald:wght@200..700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
         <style>
         .button {
           border: none;
@@ -35,6 +36,8 @@
             border-radius: 0px;
             padding-top: 25px;
             padding-bottom: 25px;
+            padding-left: 25px;
+            padding-right: 25px;
             width: 600px;
             margin: auto;
         }
@@ -48,17 +51,20 @@
     </head>
     <body>
     <div class="auth-box text-center">
+
+      <h1 style="font-family: Oswald, sans-serif;">STACKHOUSE</h1>
+
       <p><strong>Welcome to Stackhouse!</strong></p>
 
       <p>We're thrilled you've decided to join our growing community. Please confirm your email using the button below so you can have full access to our platform:</p>
 
       <form action="{{ activate_url }}">
-          <input  class="button button1" type="submit" value="Confirm Registration" />
+          <input  class="btn btn-success mb-2" type="submit" value="Confirm Registration" />
       </form>
 
       <p>If you're unable to click on the button above, please copy the following link into your browser: {{ activate_url }}.</p>
 
-      <p>Thank you for choosing mainapp. We look forward to seeing you around!</p>
+      <p>We look forward to seeing you around!</p>
 
       <p>Sincerely,</p>
 
