@@ -34,15 +34,16 @@
             
                 <div class="menu-right">
                     <template v-if="isAuth">
-                        <a>Welcome, {{ isAuth }}</a>
-                        <v-btn :href="logoutLink" class="mr-4 bg-gray-600 rounded-lg">Log Out</v-btn>
+                        <v-btn size="x-small" class="text-capitalize mr-2" prepend-icon="mdi-logout" :href="logoutLink">Signout</v-btn>
+
                     </template>
 
                     <template v-else>
-                        <v-btn :href="loginLink" class="mr-4 bg-gray-600 rounded-lg">Log In</v-btn>
-                        <v-btn :href="signupLink" class="mr-4 bg-gray-600 rounded-lg">Sign Up</v-btn>
-                        <v-btn href="https://stackhouse.news/accounts/twitter/login/" class="mr-4 bg-gray-600 rounded-lg">Connect X</v-btn>
+                        <div class="text-caption"><a class="text-decoration-underline" :href="signupLink">Signup</a> or <a class="text-decoration-underline" :href="loginLink">Login</a> with:</div>
+                        <v-btn size="x-small" class="text-capitalize mr-2" prepend-icon="mdi-twitter" href="https://stackhouse.news/accounts/twitter/login/">X/Twitter</v-btn>
+                        <v-btn size="x-small" class="text-capitalize mr-2"prepend-icon="mdi-google" href="https://stackhouse.news/accounts/google/login/">Google</v-btn>
                     </template>
+
                 </div>
             </div>
         </div>
@@ -98,4 +99,5 @@
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Eczar&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Oswald:wght@200..700&family=Playfair+Display:wght@600&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css");
 </style>
