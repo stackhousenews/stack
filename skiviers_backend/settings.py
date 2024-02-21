@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'post',
     'chat',
     'notification',
+    'substack',
 
 ]
 
