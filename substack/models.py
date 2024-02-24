@@ -74,6 +74,7 @@ class Story(models.Model):
                                     related_name="story_dislikes",blank=True)
     slug = models.SlugField(max_length=280,allow_unicode=True, unique=True)
     tags = models.ManyToManyField(StoryTag,related_name="news_tags",blank=True)                
+    bookmark = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="story_user_bookmarked",on_delete=models.PROTECT,editable=False,blank=True,null=True)
 
     def __str__(self):
         return self.title

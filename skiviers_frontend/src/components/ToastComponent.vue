@@ -2,7 +2,6 @@
 import { useToastStore } from '@/stores/toast'
 
 const store = useToastStore()
-
 </script>
 
 <template>

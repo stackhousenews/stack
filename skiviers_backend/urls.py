@@ -7,6 +7,7 @@ from .views import IndexTemplateView
 
 urlpatterns = [
     path('api/', include('user_account.urls')),
+    path('api/content/', include('substack.urls')),
     path('api/posts/', include('post.urls')),
     path('api/search/', include('search.urls')),
     path('api/chat/', include('chat.urls')),

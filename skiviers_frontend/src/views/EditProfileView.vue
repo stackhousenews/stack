@@ -5,8 +5,9 @@
                 <h1 class="mb-6 text-2xl">Edit profile</h1>
 
                 <p class="mb-6 text-gray-500">
-                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
-                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate.
+                    Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit
+                    mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor
+                    sit mate.
                 </p>
 
                 <RouterLink to="/profile/edit/password" class="underline">Edit password</RouterLink>
@@ -17,22 +18,29 @@
             <div class="p-12 bg-white border border-gray-200 rounded-lg">
                 <form class="space-y-6" v-on:submit.prevent="submitForm">
                     <div>
-                        <label>Name</label><br>
-                        <input type="text" v-model="form.name" placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                        <label>Name</label><br />
+                        <input
+                            type="text"
+                            v-model="form.name"
+                            placeholder="Your full name"
+                            class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"
+                        />
                     </div>
 
                     <div>
-                        <label>E-mail</label><br>
-                        <input type="email" v-model="form.email" placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg">
+                        <label>E-mail</label><br />
+                        <input
+                            type="email"
+                            v-model="form.email"
+                            placeholder="Your e-mail address"
+                            class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"
+                        />
                     </div>
 
                     <div>
-                        <label>Avatar</label><br>
-                        <input type="file" ref="file">
+                        <label>Avatar</label><br />
+                        <input type="file" ref="file" />
                     </div>
-
-
-
 
                     <template v-if="errors.length > 0">
                         <div class="bg-red-300 text-white rounded-lg p-6">
@@ -41,7 +49,9 @@
                     </template>
 
                     <div>
-                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Save changes</button>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">
+                            Save changes
+                        </button>
                     </div>
                 </form>
             </div>
@@ -72,7 +82,7 @@ export default {
                 email: this.userStore.user.email,
                 name: this.userStore.user.name
             },
-            errors: [],
+            errors: []
         }
     },
 
@@ -97,12 +107,16 @@ export default {
                 axios
                     .post('/api/editprofile/', formData, {
                         headers: {
-                            "Content-Type": "multipart/form-data",
+                            'Content-Type': 'multipart/form-data'
                         }
                     })
-                    .then(response => {
+                    .then((response) => {
                         if (response.data.message === 'information updated') {
-                            this.toastStore.showToast(5000, 'The information was saved', 'bg-emerald-500')
+                            this.toastStore.showToast(
+                                5000,
+                                'The information was saved',
+                                'bg-emerald-500'
+                            )
 
                             this.userStore.setUserInfo({
                                 id: this.userStore.user.id,
@@ -113,10 +127,14 @@ export default {
 
                             this.$router.back()
                         } else {
-                            this.toastStore.showToast(5000, `${response.data.message}. Please try again`, 'bg-red-300')
+                            this.toastStore.showToast(
+                                5000,
+                                `${response.data.message}. Please try again`,
+                                'bg-red-300'
+                            )
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.log('error', error)
                     })
             }
