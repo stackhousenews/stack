@@ -1,13 +1,12 @@
 <template>
-    <v-slide-group show-arrows>
-        <v-slide-group-item v-for="post in posts.slice(0, 6)" :key="post.id">
-            <v-sheet class="ma-3" color="grey-lighten-4" height="300" rounded width="450">
+    <v-row no-gutters>
+        <v-col v-for="post in posts.slice(0, 3)" :key="post.id" cols="4">
+            <v-sheet class="ma-3" color="grey-lighten-4" height="320" rounded>
                 <v-card
                     class="mx-auto"
                     color="grey-lighten-4"
                     hover
-                    height="300"
-                    v-bind:key="post.id"
+                    height="320"
                     :href="post.link"
                     target="_blank"
                     :title="post.source"
@@ -44,8 +43,8 @@
                     </v-card-subtitle>
                 </v-card>
             </v-sheet>
-        </v-slide-group-item>
-    </v-slide-group>
+        </v-col></v-row
+    >
 </template>
 
 <script>

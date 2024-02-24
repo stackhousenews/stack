@@ -187,27 +187,22 @@
                 <TopStoriesComponent />
             </v-sheet>
 
-            <v-sheet class="mx-auto pa-2 pt-6" color="grey-lighten-2">
-                <v-sheet color="grey" height="24" rounded="pill" width="88"></v-sheet>
+            <v-sheet class="mx-auto pa-2 pt-4" color="grey-lighten-2">
+                <span
+                    class="text-xl ml-2 mr-4"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                    >FEATURED</span
+                >
 
-                <v-slide-group show-arrows>
-                    <v-slide-group-item v-for="n in 15" :key="n">
-                        <v-sheet
-                            :width="n === 1 ? 300 : 150"
-                            color="grey-lighten-1"
-                            class="ma-3"
-                            height="200"
-                            rounded
-                        ></v-sheet>
-                    </v-slide-group-item>
-                </v-slide-group>
+                <FeaturedComponent />
 
-                <v-container fluid>
-                    <v-row>
-                        <v-col v-for="n in 24" :key="n" cols="2">
-                            <v-sheet color="grey-lighten-1" height="200" rounded></v-sheet>
-                        </v-col>
-                    </v-row>
+                <v-container fluid class="mt-2">
+                    <span
+                        class="text-xl ml-2 mr-4"
+                        style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                        >LATEST</span
+                    >
+                    <LatestComponent />
                 </v-container>
             </v-sheet>
         </v-main>
@@ -218,6 +213,8 @@
 import axios from 'axios'
 import ToastComponent from '@/components/ToastComponent.vue'
 import TopStoriesComponent from '@/components/TopStoriesComponent.vue'
+import FeaturedComponent from '@/components/FeaturedComponent.vue'
+import LatestComponent from '@/components/LatestComponent.vue'
 import { ref } from 'vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import {
@@ -267,6 +264,8 @@ export default {
     components: {
         ToastComponent,
         TopStoriesComponent,
+        FeaturedComponent,
+        LatestComponent,
         SvgIcon
     }
 }
