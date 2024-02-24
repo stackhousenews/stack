@@ -1,6 +1,6 @@
 <template>
     <v-row class="mt-2">
-        <v-col v-for="post in posts.slice(7, 31)" :key="post.id" cols="2" md="6">
+        <v-col v-for="post in posts.slice(7, 31)" :key="post.id" cols="6" md="2">
             <v-sheet color="#e8e4db" height="200" rounded>
                 <v-card
                     class="mx-auto"
