@@ -35,11 +35,6 @@
                     >Google</v-btn
                 >
             </template>
-
-            <v-icon icon="mdi-wifi-strength-4" class="ms-2"></v-icon>
-            <v-icon icon="mdi-signal-cellular-outline" class="ms-2"></v-icon>
-            <v-icon icon="mdi-battery" class="ms-2"></v-icon>
-            <span class="ms-2">7:43PM</span>
         </v-system-bar>
 
         <v-app-bar color="grey-lighten-4" flat height="72">
@@ -57,10 +52,22 @@
             >
 
             <RouterLink to="/feed"
-                ><v-btn class="me-2" height="40" variant="flat" prepend-icon="mdi-home-outline"
+                ><v-btn
+                    class="me-2"
+                    height="40"
+                    variant="flat"
+                    prepend-icon="mdi-home-outline"
+                    color="grey-lighten-4"
                     >Home
                 </v-btn></RouterLink
             >
+
+            <RouterLink to="/feed"
+                ><v-btn class="me-2" height="40" variant="flat" color="grey-lighten-4">
+                    <svg-icon type="mdi" size="16" :path="substack" class="mr-2"></svg-icon>
+                    Bookmarks
+                </v-btn>
+            </RouterLink>
 
             <v-spacer></v-spacer>
         </v-app-bar>
