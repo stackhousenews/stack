@@ -1,5 +1,5 @@
 <template>
-    <v-layout>
+    <v-app id="inspire">
         <v-system-bar color="grey-darken-4 py-2">
             <template v-if="isAuth">
                 <v-btn
@@ -41,105 +41,192 @@
             <v-icon icon="mdi-battery" class="ms-2"></v-icon>
             <span class="ms-2">7:43PM</span>
         </v-system-bar>
-    </v-layout>
-    <nav class="pt-8 pb-4 px-8 border-b" style="background-color: #e8e4db">
-        <div class="max-w-[88rem] mx-auto">
-            <div class="flex items-center justify-between">
-                <div class="menu-left">
-                    <a
-                        href="#"
-                        class="text-4xl"
-                        style="font-family: 'Oswald', serif; color: #003594"
-                        >STACKHOUSE</a
-                    >
-                </div>
 
-                <div class="menu-center flex space-x-12" v-if="isAuth">
-                    <RouterLink to="/feed" class="text-purple-700">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                            />
-                        </svg>
-                    </RouterLink>
+        <v-app-bar color="grey-lighten-4" flat height="72">
+            <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
+                ><v-img
+                    src="https://stackhouse.s3.us-east-2.amazonaws.com/static/stackhouse_blue.png"
+                    alt="Stackhouse"
+                ></v-img
+            ></v-avatar>
+            <a
+                href="#"
+                class="text-4xl ml-2 mr-4"
+                style="font-family: 'Oswald', serif; color: #003594"
+                >STACKHOUSE</a
+            >
 
-                    <RouterLink to="/chat">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
-                            ></path>
-                        </svg>
-                    </RouterLink>
+            <RouterLink to="/feed"
+                ><v-btn class="me-2" height="40" variant="flat" prepend-icon="mdi-home-outline"
+                    >Home
+                </v-btn></RouterLink
+            >
 
-                    <RouterLink to="/notifications">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                            ></path>
-                        </svg>
-                    </RouterLink>
+            <v-spacer></v-spacer>
+        </v-app-bar>
 
-                    <RouterLink to="/search">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                            ></path>
-                        </svg>
-                    </RouterLink>
-                </div>
+        <v-footer app color="grey" height="44"></v-footer>
 
-                <div class="menu-right"></div>
+        <v-navigation-drawer floating>
+            <div class="d-flex px-2 my-2">
+                <v-btn class="flex-grow-1" color="grey" height="40" variant="flat"
+                    ><span class="" style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                        >AI ASSISTANT</span
+                    ></v-btn
+                >
+
+                <v-avatar class="ms-2" color="surface-variant" rounded variant="flat"
+                    ><svg-icon type="mdi" :path="lantern"></svg-icon
+                ></v-avatar>
             </div>
-        </div>
-    </nav>
 
-    <main class="px-8 py-6" style="background-color: #e8e4db">
-        <RouterView />
-    </main>
+            <div class="d-flex px-2 my-2 align-center">
+                <v-btn color="grey-lighten-4" variant="flat" height="40" class="flex-grow-1 me-2"
+                    ><span class="" style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                        >NEWSLETTERS</span
+                    ></v-btn
+                >
 
-    <ToastComponent />
+                <v-avatar color="surface-variant" size="18"></v-avatar>
+
+                <v-avatar class="ms-1" color="surface-variant" size="18"></v-avatar>
+            </div>
+
+            <div class="px-2 my-2">
+                <v-text-field
+                    class="mb-4"
+                    density="compact"
+                    flat
+                    hide-details
+                    prepend-inner-icon="mdi-magnify"
+                    variant="solo-filled"
+                ></v-text-field>
+
+                <v-sheet
+                    class="mb-2"
+                    color="surface-variant"
+                    height="24"
+                    rounded="pill"
+                    width="50%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="40%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="20%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="90%"
+                ></v-sheet>
+
+                <v-sheet color="grey-lighten-1" height="12" rounded="pill" width="70%"></v-sheet>
+
+                <v-divider class="my-6"></v-divider>
+
+                <v-sheet
+                    class="mb-2"
+                    color="surface-variant"
+                    height="24"
+                    rounded="pill"
+                    width="30%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="65%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="70%"
+                ></v-sheet>
+
+                <v-sheet
+                    class="mb-1"
+                    color="grey-lighten-1"
+                    height="12"
+                    rounded="pill"
+                    width="40%"
+                ></v-sheet>
+
+                <v-sheet color="grey-lighten-1" height="12" rounded="pill" width="100%"></v-sheet>
+
+                <v-divider class="my-6"></v-divider>
+            </div>
+        </v-navigation-drawer>
+
+        <v-main>
+            <v-sheet class="mx-auto pa-2 pt-2" color="grey-lighten-4">
+                <span
+                    class="text-xl ml-2 mr-4"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                    >TOP STORIES</span
+                >
+
+                <TopStoriesComponent />
+            </v-sheet>
+
+            <v-sheet class="mx-auto pa-2 pt-6" color="grey-lighten-2">
+                <v-sheet color="grey" height="24" rounded="pill" width="88"></v-sheet>
+
+                <v-slide-group show-arrows>
+                    <v-slide-group-item v-for="n in 15" :key="n">
+                        <v-sheet
+                            :width="n === 1 ? 300 : 150"
+                            color="grey-lighten-1"
+                            class="ma-3"
+                            height="200"
+                            rounded
+                        ></v-sheet>
+                    </v-slide-group-item>
+                </v-slide-group>
+
+                <v-container fluid>
+                    <v-row>
+                        <v-col v-for="n in 24" :key="n" cols="2">
+                            <v-sheet color="grey-lighten-1" height="200" rounded></v-sheet>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-sheet>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
 import axios from 'axios'
 import ToastComponent from '@/components/ToastComponent.vue'
+import TopStoriesComponent from '@/components/TopStoriesComponent.vue'
 import { ref } from 'vue'
+import SvgIcon from '@jamescoyle/vue-icon'
+import {
+    mdiPostLamp,
+    mdiHomeOutline,
+    mdiBookmarkMultipleOutline,
+    mdiMagnify,
+    mdiBellOutline
+} from '@mdi/js'
 
 export default {
     setup() {
@@ -168,17 +255,24 @@ export default {
             loginLink,
             signupLink,
             logoutLink,
-            isAuth
+            isAuth,
+            lantern: mdiPostLamp,
+            home: mdiHomeOutline,
+            substack: mdiBookmarkMultipleOutline,
+            search: mdiMagnify,
+            bell: mdiBellOutline
         }
     },
 
     components: {
-        ToastComponent
+        ToastComponent,
+        TopStoriesComponent,
+        SvgIcon
     }
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
 
 .v-card-item__content .v-card-title {
