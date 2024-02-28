@@ -1,6 +1,6 @@
 <template>
     <v-row no-gutters>
-        <v-col v-for="post in posts.slice(3, 7)" :key="post.id" cols="12" md="3">
+        <v-col v-for="post in featured_posts" :key="post.id" cols="12" md="3">
             <v-sheet color="grey-lighten-2" height="170" rounded>
                 <v-col cols="12">
                     <v-card
@@ -15,22 +15,42 @@
                                 <v-img :src="post.image_link"></v-img>
                             </v-avatar>
                             <div>
-                                <div class="text-caption ml-2 mt-2">
+                                <div class="ml-2 mt-1" style="font-size: 60%">
                                     {{ post.source }} - {{ post.published }}
                                 </div>
-                                <v-card-title class="justify-end">
+                                <v-card-title class="justify-end" style="line-height: 120%">
                                     <span
-                                        class="d-flex text-wrap text-xl mb-2 mr-2"
-                                        style="font-family: 'Playfair Display', serif"
+                                        v-if="post.title.length < 36"
+                                        class="d-flex text-wrap mb-1 mr-2"
+                                        style="
+                                            font-family: 'Playfair Display', serif;
+                                            font-size: 110%;
+                                        "
+                                        >{{ post.title }}</span
+                                    >
+                                    <span
+                                        v-else
+                                        class="d-flex text-wrap mb-1 mr-2"
+                                        style="
+                                            font-family: 'Playfair Display', serif;
+                                            font-size: 90%;
+                                        "
                                         >{{ post.title }}</span
                                     >
                                 </v-card-title>
 
                                 <v-card-subtitle>
                                     <span
+                                        v-if="post.subtitle.length < 48"
                                         class="d-flex text-wrap"
                                         style="font-family: 'Lato', sans-serif"
                                         >{{ post.subtitle }}</span
+                                    >
+                                    <span
+                                        v-else
+                                        class="d-flex text-wrap"
+                                        style="font-family: 'Lato', sans-serif"
+                                        >{{ post.subtitle.slice(0, 48) }}...</span
                                     >
                                 </v-card-subtitle>
                             </div>
@@ -43,35 +63,14 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
-import axios from 'axios'
-
 export default {
     props: {
-        comment: Object
+        featured_posts: Array,
+        required: true
     },
-    components: { RouterLink },
+    components: {},
     data() {
-        return {
-            posts: []
-        }
-    },
-
-    mounted() {
-        this.getFeed()
-    },
-
-    methods: {
-        getFeed() {
-            axios
-                .get('/api/content/stories/')
-                .then((response) => {
-                    this.posts = response.data.results
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        }
+        return {}
     }
 }
 </script>

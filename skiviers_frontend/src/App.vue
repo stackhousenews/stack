@@ -70,9 +70,31 @@
             </RouterLink>
 
             <v-spacer></v-spacer>
+
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </v-app-bar>
 
         <v-footer app color="grey" height="44"></v-footer>
+
+        <v-navigation-drawer v-model="drawer" location="right" temporary>
+            <RouterLink to="/feed"
+                ><v-btn
+                    class="me-2"
+                    height="40"
+                    variant="flat"
+                    prepend-icon="mdi-home-outline"
+                    color="grey-lighten-4"
+                    >Home
+                </v-btn></RouterLink
+            >
+
+            <RouterLink to="/feed"
+                ><v-btn class="me-2" height="40" variant="flat" color="grey-lighten-4">
+                    <svg-icon type="mdi" size="16" :path="substack" class="mr-2"></svg-icon>
+                    Bookmarks
+                </v-btn>
+            </RouterLink>
+        </v-navigation-drawer>
 
         <v-navigation-drawer floating>
             <div class="d-flex px-2 my-2">
@@ -191,7 +213,7 @@
                     >TOP STORIES</span
                 >
 
-                <TopStoriesComponent />
+                <TopStoriesComponent :top_posts="top_posts" />
             </v-sheet>
 
             <v-sheet class="mx-auto pa-2 pt-4" color="grey-lighten-2">
@@ -201,15 +223,15 @@
                     >FEATURED</span
                 >
 
-                <FeaturedComponent />
+                <FeaturedComponent :featured_posts="featured_posts" />
 
-                <v-container fluid class="mt-2">
+                <v-container fluid class="mt-4">
                     <span
                         class="text-xl ml-2 mr-4"
                         style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                         >LATEST</span
                     >
-                    <LatestComponent />
+                    <LatestComponent :latest_posts="latest_posts" />
                 </v-container>
             </v-sheet>
         </v-main>
@@ -254,6 +276,8 @@ export default {
         const loginLink = import.meta.env.VITE_API_URL && '/accounts/login/'
         const signupLink = import.meta.env.VITE_API_URL && '/accounts/signup/'
         const logoutLink = import.meta.env.VITE_API_URL && '/accounts/logout/'
+        let drawer = false
+        let group = null
 
         return {
             loginLink,
@@ -264,7 +288,23 @@ export default {
             home: mdiHomeOutline,
             substack: mdiBookmarkMultipleOutline,
             search: mdiMagnify,
-            bell: mdiBellOutline
+            bell: mdiBellOutline,
+            drawer,
+            group
+        }
+    },
+
+    data() {
+        return {
+            top_posts: [],
+            featured_posts: [],
+            latest_posts: []
+        }
+    },
+
+    watch: {
+        group() {
+            this.drawer = false
         }
     },
 
@@ -274,6 +314,24 @@ export default {
         FeaturedComponent,
         LatestComponent,
         SvgIcon
+    },
+    mounted() {
+        this.getFeed()
+    },
+
+    methods: {
+        getFeed() {
+            axios
+                .get('/api/content/stories/')
+                .then((response) => {
+                    this.top_posts = response.data.results.slice(0, 3)
+                    this.featured_posts = response.data.results.slice(3, 7)
+                    this.latest_posts = response.data.results.slice(7, 31)
+                })
+                .catch((error) => {
+                    console.log('error', error)
+                })
+        }
     }
 }
 </script>

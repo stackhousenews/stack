@@ -1,6 +1,6 @@
 <template>
     <v-row no-gutters>
-        <v-col v-for="post in posts.slice(0, 3)" :key="post.id" cols="12" md="4">
+        <v-col v-for="post in top_posts" :key="post.id" cols="12" md="4">
             <v-sheet class="ma-3" color="grey-lighten-4" height="320" rounded>
                 <v-card
                     class="mx-auto"
@@ -48,35 +48,14 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
-import axios from 'axios'
-
 export default {
     props: {
-        comment: Object
+        top_posts: Array,
+        required: true
     },
-    components: { RouterLink },
+    components: {},
     data() {
-        return {
-            posts: []
-        }
-    },
-
-    mounted() {
-        this.getFeed()
-    },
-
-    methods: {
-        getFeed() {
-            axios
-                .get('/api/content/stories/')
-                .then((response) => {
-                    this.posts = response.data.results
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        }
+        return {}
     }
 }
 </script>

@@ -21,10 +21,15 @@ def scrape():
         req=session.get(substack.url + '/archive/',headers=headers)
         soup=BeautifulSoup(req.text)
 
-        res = soup.find_all('div',{ 'class':'frontend-main-home-PostPreview-index-module__container--gXuU1' })
+        res = soup.find_all('div',{ 'class':['pencraft', 'pc-display-flex', 'pc-flexDirection-column', 'pc-padding-8', 'pc-reset', 'pc-borderRadius-sm'] })
 
         for headline in res:
-            title = headline.find('a',{ 'class':'frontend-pencraft-Text-module__font-pub-headings--lbOZ2' }).text.strip()
+            print(headline)
+            _title = headline.find('a',{ 'class':['pencraft', 'pc-reset', '_line-height-24_17vpp_98', '_font-pub-headings_17vpp_140', '_size-17_17vpp_60', '_clamp_17vpp_256', '_clamp-3_17vpp_268', '_reset_17vpp_1'] })
+            if _title:
+                title = _title.text.strip()
+            else:
+                next
             _author = headline.find('a',{ 'class':'frontend-main-home-PostPreview-PostPreviewAuthors-module__link--XzaS3' }).text.strip()
             _author_name = _author.split()[0]
             _author_surname = _author.split()[1]

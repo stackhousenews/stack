@@ -10,7 +10,7 @@ class StorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = smds.Story
-        exclude = []
+        exclude = ['content']
 
     def get_source(self, instance):
         if instance.source:
