@@ -1,7 +1,13 @@
 <template>
     <v-row no-gutters>
-        <v-col v-for="post in top_posts" :key="post.id" cols="12" md="4">
-            <v-sheet class="ma-3" color="grey-lighten-4" height="320" rounded>
+        <v-col
+            v-for="post in top_posts"
+            :key="post.id"
+            cols="12"
+            md="4"
+            :class="mdAndUp ? '' : 'px-0'"
+        >
+            <v-sheet :class="mdAndUp ? 'ma-3' : 'ma-2'" color="grey-lighten-4" height="320" rounded>
                 <v-card
                     class="mx-auto"
                     color="grey-lighten-4"

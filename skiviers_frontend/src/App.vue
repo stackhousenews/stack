@@ -51,7 +51,7 @@
                 >STACKHOUSE</a
             >
 
-            <RouterLink to="/feed"
+            <RouterLink to="/feed" v-if="mdAndUp"
                 ><v-btn
                     class="me-2"
                     height="40"
@@ -62,7 +62,7 @@
                 </v-btn></RouterLink
             >
 
-            <RouterLink to="/feed"
+            <RouterLink to="/feed" v-if="mdAndUp"
                 ><v-btn class="me-2" height="40" variant="flat" color="grey-lighten-4">
                     <svg-icon type="mdi" size="16" :path="substack" class="mr-2"></svg-icon>
                     Bookmarks
@@ -206,8 +206,9 @@
         </v-navigation-drawer>
 
         <v-main>
-            <v-sheet class="mx-auto pa-2 pt-2" color="grey-lighten-4">
+            <v-sheet :class="mdAndUp ? 'mx-auto pa-2 pt-2' : 'mx-auto'" color="grey-lighten-4">
                 <span
+                    v-if="mdAndUp"
                     class="text-xl ml-2 mr-4"
                     style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                     >TOP STORIES</span
@@ -216,7 +217,7 @@
                 <TopStoriesComponent :top_posts="top_posts" />
             </v-sheet>
 
-            <v-sheet class="mx-auto pa-2 pt-4" color="grey-lighten-2">
+            <v-sheet :class="mdAndUp ? 'mx-auto pa-2 pt-4' : 'mx-auto pt-2'" color="grey-lighten-2">
                 <span
                     class="text-xl ml-2 mr-4"
                     style="font-family: 'Montserrat', sans-serif; font-weight: 500"
@@ -225,9 +226,9 @@
 
                 <FeaturedComponent :featured_posts="featured_posts" />
 
-                <v-container fluid class="mt-4">
+                <v-container :fluid="mdAndUp" :class="mdAndUp ? 'mt-4' : 'mx-0 px-2'">
                     <span
-                        class="text-xl ml-2 mr-4"
+                        :class="mdAndUp ? 'text-xl ml-2' : 'text-xl'"
                         style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                         >LATEST</span
                     >
@@ -253,10 +254,12 @@ import {
     mdiMagnify,
     mdiBellOutline
 } from '@mdi/js'
+import { useDisplay } from 'vuetify'
 
 export default {
     setup() {
         const isAuth = ref([])
+        const { mdAndUp } = useDisplay()
 
         ;(async () => {
             let res = null
@@ -290,7 +293,8 @@ export default {
             search: mdiMagnify,
             bell: mdiBellOutline,
             drawer,
-            group
+            group,
+            mdAndUp
         }
     },
 

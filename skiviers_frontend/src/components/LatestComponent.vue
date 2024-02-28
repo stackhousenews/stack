@@ -1,14 +1,20 @@
 <template>
-    <v-row class="mt-2">
-        <v-col v-for="post in latest_posts" :key="post.id" cols="6" md="2">
-            <v-sheet color="grey-lighten-" height="200" rounded>
+    <v-row :class="mdAndUp ? 'mt-2' : 'mt-1'">
+        <v-col
+            v-for="post in latest_posts"
+            :key="post.id"
+            cols="12"
+            md="2"
+            :class="mdAndUp ? '' : 'pb-1'"
+        >
+            <v-sheet color="grey-lighten-" :height="mdAndUp ? 200 : 140" rounded>
                 <v-card
                     class="mx-auto"
                     color="#e8e4db"
                     hover
                     :href="post.link"
                     target="_blank"
-                    height="200"
+                    :height="mdAndUp ? 200 : 140"
                 >
                     <div class="ml-2 mt-2" style="font-size: 60%">
                         {{ post.source }} - {{ post.published }}

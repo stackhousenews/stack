@@ -1,8 +1,14 @@
 <template>
     <v-row no-gutters>
-        <v-col v-for="post in featured_posts" :key="post.id" cols="12" md="3">
+        <v-col
+            v-for="post in featured_posts"
+            :key="post.id"
+            cols="12"
+            md="3"
+            :class="mdAndUp ? '' : 'mb-2 pb-2'"
+        >
             <v-sheet color="grey-lighten-2" height="170" rounded>
-                <v-col cols="12">
+                <v-col cols="12" :class="mdAndUp ? '' : 'px-2'">
                     <v-card
                         color="grey-lighten-2"
                         hover
