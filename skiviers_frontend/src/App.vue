@@ -74,7 +74,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </v-app-bar>
 
-        <v-footer app color="grey" height="44"></v-footer>
+        <v-footer app color="grey" height="44" :absolute="!mdAndUp"></v-footer>
 
         <v-navigation-drawer v-model="drawer" location="right" temporary>
             <RouterLink to="/feed"
