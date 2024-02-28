@@ -42,7 +42,11 @@
 
                     <v-card-subtitle>
                         <span
-                            class="d-flex text-wrap text-xl"
+                            :class="
+                                mdAndUp
+                                    ? 'd-flex text-wrap text-xl'
+                                    : 'd-flex text-wrap text-body-1 mt-2'
+                            "
                             style="font-family: 'Lato', sans-serif"
                             >{{ post.subtitle }}</span
                         >

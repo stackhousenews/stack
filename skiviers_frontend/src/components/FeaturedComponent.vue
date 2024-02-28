@@ -24,7 +24,10 @@
                                 <div class="ml-2 mt-1" style="font-size: 60%">
                                     {{ post.source }} - {{ post.published }}
                                 </div>
-                                <v-card-title class="justify-end" style="line-height: 120%">
+                                <v-card-title
+                                    :class="mdAndUp ? 'justify-end' : 'justify-end mt-0'"
+                                    style="line-height: 120%"
+                                >
                                     <span
                                         v-if="post.title.length < 36"
                                         class="d-flex text-wrap mb-1 mr-2"
@@ -48,13 +51,21 @@
                                 <v-card-subtitle>
                                     <span
                                         v-if="post.subtitle.length < 48"
-                                        class="d-flex text-wrap"
+                                        :class="
+                                            mdAndUp
+                                                ? 'd-flex text-wrap text-xl'
+                                                : 'd-flex text-wrap text-body-1'
+                                        "
                                         style="font-family: 'Lato', sans-serif"
                                         >{{ post.subtitle }}</span
                                     >
                                     <span
                                         v-else
-                                        class="d-flex text-wrap"
+                                        :class="
+                                            mdAndUp
+                                                ? 'd-flex text-wrap text-xl'
+                                                : 'd-flex text-wrap text-body-1'
+                                        "
                                         style="font-family: 'Lato', sans-serif"
                                         >{{ post.subtitle.slice(0, 48) }}...</span
                                     >
