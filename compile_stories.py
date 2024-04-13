@@ -12,8 +12,6 @@ import re
 from dateutil import parser
 from substack import models as mds
 
-
-
 def compile():
     qry = mds.Story.objects.all()
 
