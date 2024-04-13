@@ -1,4 +1,10 @@
 {
+
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "explicit"
+        },
+        "eslint.validate": ["javascript"],
+
     "env": {
         "browser": true,
         "commonjs": true,
@@ -20,6 +26,17 @@
         "vue"
     ],
     "rules": {
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "max-len": "off",
+        "vue/max-len": [
+          "error",
+          {
+            "code": 120,
+            "template": 9000,
+            "ignoreTemplateLiterals": true,
+            "ignoreUrls": true,
+            "ignoreStrings": true
+          }
+        ]
     }
 }

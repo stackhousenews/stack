@@ -59,75 +59,75 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
-import { useToastStore } from '@/stores/toast'
-import { useUserStore } from '@/stores/user'
+import { useToastStore } from '@/stores/toast';
+import { useUserStore } from '@/stores/user';
 
 export default {
-    setup() {
-        const toastStore = useToastStore()
-        const userStore = useUserStore()
+  setup() {
+    const toastStore = useToastStore();
+    const userStore = useUserStore();
 
-        return {
-            toastStore,
-            userStore
-        }
-    },
+    return {
+      toastStore,
+      userStore,
+    };
+  },
 
-    data() {
-        return {
-            form: {
-                old_password: '',
-                new_password1: '',
-                new_password2: ''
+  data() {
+    return {
+      form: {
+        old_password: '',
+        new_password1: '',
+        new_password2: '',
+      },
+      errors: [],
+    };
+  },
+
+  methods: {
+    submitForm() {
+      this.errors = [];
+
+      if (this.form.password1 !== this.form.password2) {
+        this.errors.push('The password does not match');
+      }
+
+      if (this.errors.length === 0) {
+        const formData = new FormData();
+        formData.append('old_password', this.form.old_password);
+        formData.append('new_password1', this.form.new_password1);
+        formData.append('new_password2', this.form.new_password2);
+
+        axios
+          .post('/api/editpassword/', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
             },
-            errors: []
-        }
+          })
+          .then((response) => {
+            if (response.data.message === 'success') {
+              this.toastStore.showToast(
+                5000,
+                'The information was saved',
+                'bg-emerald-500',
+              );
+
+              this.$router.push(`/profile/${this.userStore.user.id}`);
+            } else {
+              const data = JSON.parse(response.data.message);
+
+              for (const key in data) {
+                this.errors.push(data[key][0].message);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
+      }
     },
-
-    methods: {
-        submitForm() {
-            this.errors = []
-
-            if (this.form.password1 !== this.form.password2) {
-                this.errors.push('The password does not match')
-            }
-
-            if (this.errors.length === 0) {
-                let formData = new FormData()
-                formData.append('old_password', this.form.old_password)
-                formData.append('new_password1', this.form.new_password1)
-                formData.append('new_password2', this.form.new_password2)
-
-                axios
-                    .post('/api/editpassword/', formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                    .then((response) => {
-                        if (response.data.message === 'success') {
-                            this.toastStore.showToast(
-                                5000,
-                                'The information was saved',
-                                'bg-emerald-500'
-                            )
-
-                            this.$router.push(`/profile/${this.userStore.user.id}`)
-                        } else {
-                            const data = JSON.parse(response.data.message)
-
-                            for (const key in data) {
-                                this.errors.push(data[key][0].message)
-                            }
-                        }
-                    })
-                    .catch((error) => {
-                        console.log('error', error)
-                    })
-            }
-        }
-    }
-}
+  },
+};
 </script>

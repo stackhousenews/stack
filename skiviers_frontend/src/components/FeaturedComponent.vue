@@ -4,11 +4,11 @@
             v-for="post in featured_posts"
             :key="post.id"
             cols="12"
-            md="3"
-            :class="mdAndUp ? '' : 'mb-2 pb-2'"
+            lg="4"
+            :class="lgAndUp ? '' : 'mb-2 pb-2'"
         >
             <v-sheet color="grey-lighten-2" height="170" rounded>
-                <v-col cols="12" :class="mdAndUp ? '' : 'px-2'">
+                <v-col cols="12" :class="lgAndUp ? '' : 'px-2'">
                     <v-card
                         color="grey-lighten-2"
                         hover
@@ -25,7 +25,7 @@
                                     {{ post.source }} - {{ post.published }}
                                 </div>
                                 <v-card-title
-                                    :class="mdAndUp ? 'justify-end' : 'justify-end mt-0'"
+                                    :class="lgAndUp ? 'justify-end' : 'justify-end mt-0'"
                                     style="line-height: 120%"
                                 >
                                     <span
@@ -33,7 +33,7 @@
                                         class="d-flex text-wrap mb-1 mr-2"
                                         style="
                                             font-family: 'Playfair Display', serif;
-                                            font-size: 110%;
+                                            font-size: 100%;
                                         "
                                         >{{ post.title }}</span
                                     >
@@ -42,7 +42,7 @@
                                         class="d-flex text-wrap mb-1 mr-2"
                                         style="
                                             font-family: 'Playfair Display', serif;
-                                            font-size: 90%;
+                                            font-size: 80%;
                                         "
                                         >{{ post.title }}</span
                                     >
@@ -52,8 +52,8 @@
                                     <span
                                         v-if="post.subtitle.length < 48"
                                         :class="
-                                            mdAndUp
-                                                ? 'd-flex text-wrap text-xl'
+                                            lgAndUp
+                                                ? 'd-flex text-wrap text-subtitle-2'
                                                 : 'd-flex text-wrap text-body-1'
                                         "
                                         style="font-family: 'Lato', sans-serif"
@@ -62,12 +62,12 @@
                                     <span
                                         v-else
                                         :class="
-                                            mdAndUp
-                                                ? 'd-flex text-wrap text-xl'
+                                            lgAndUp
+                                                ? 'd-flex text-wrap text-subtitle-2'
                                                 : 'd-flex text-wrap text-body-1'
                                         "
                                         style="font-family: 'Lato', sans-serif"
-                                        >{{ post.subtitle.slice(0, 48) }}...</span
+                                        >{{ post.subtitle }}</span
                                     >
                                 </v-card-subtitle>
                             </div>
@@ -81,13 +81,16 @@
 
 <script>
 export default {
-    props: {
-        featured_posts: Array,
-        required: true
+  props: {
+    featured_posts: { type: Array, required: true },
+    lgAndUp: {
+      type: Boolean,
+      required: true,
     },
-    components: {},
-    data() {
-        return {}
-    }
-}
+  },
+  components: {},
+  data() {
+    return {};
+  },
+};
 </script>

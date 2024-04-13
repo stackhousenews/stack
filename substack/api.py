@@ -1,10 +1,12 @@
 from rest_framework import generics, pagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from . import serializers as szrs
 from . import models as smds
-from core.diogenes import check_status
+from core.diogenes_asst import check_status
+from core.diogenes import create_headlines
 import json
 
 class Pagination(pagination.PageNumberPagination):
@@ -14,7 +16,7 @@ class Pagination(pagination.PageNumberPagination):
 class StoryAPIView(generics.ListAPIView):
     """Provides the feed."""
     serializer_class = szrs.StorySerializer
-    queryset = smds.Story.objects.all()
+    queryset = smds.Story.objects.exclude(source__active=False)
     pagination_class = Pagination
     permission_classes = [AllowAny]
 
@@ -25,3 +27,18 @@ class DiogenesCheckStatusAPIView(generics.GenericAPIView):
     def get(self,request):
         #hashtags will have a letter a at the beginning
         return Response(check_status().json())
+
+class AskDiogenesAPIView(APIView):
+    permission_classes=[AllowAny]
+
+    def post(self,request):
+        question = request.data['question']
+        print(question)
+        return Response(check_status(question))
+
+class DiogenesHeadlinesAPIView(APIView):
+    permission_classes=[AllowAny]
+
+    def get(self,request):
+        #hashtags will have a letter a at the beginning
+        return Response(create_headlines().json())

@@ -62,10 +62,13 @@ def rss():
             feed = feedparser.parse(substack.url + '/feed')
             for entry in feed.entries:
                 title = remove_tags(entry.title)
-                _author = remove_tags(entry.author)
-                _author_name = _author.split()[0]
-                _author_surname = _author.split()[1]
-                author = smds.Author.objects.get_or_create(name=_author_name,surname=_author_surname)[0]
+                try:
+                    _author = remove_tags(entry.author)
+                    _author_name = _author.split()[0]
+                    _author_surname = _author.split()[1]
+                    author = smds.Author.objects.get_or_create(name=_author_name,surname=_author_surname)[0]
+                except:
+                    author = None
                 subtitle = remove_tags(entry.description)
                 link = entry.link
                 published = parser.parse(entry.published)

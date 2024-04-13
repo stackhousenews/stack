@@ -115,36 +115,36 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
-    name: 'HomeView',
+  name: 'HomeView',
 
-    components: {},
+  components: {},
 
-    data() {
-        return {
-            posts: []
-        }
+  data() {
+    return {
+      posts: [],
+    };
+  },
+
+  mounted() {
+    this.getFeed();
+  },
+
+  methods: {
+    getFeed() {
+      axios
+        .get('/api/content/stories/')
+        .then((response) => {
+          console.log(response.data);
+
+          this.posts = response.data.results;
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
     },
-
-    mounted() {
-        this.getFeed()
-    },
-
-    methods: {
-        getFeed() {
-            axios
-                .get('/api/content/stories/')
-                .then((response) => {
-                    console.log(response.data)
-
-                    this.posts = response.data.results
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        }
-    }
-}
+  },
+};
 </script>

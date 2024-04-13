@@ -18,62 +18,62 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
-    name: 'NotificationsView',
+  name: 'NotificationsView',
 
-    data() {
-        return {
-            notifications: []
-        }
+  data() {
+    return {
+      notifications: [],
+    };
+  },
+
+  mounted() {
+    this.getNotifications();
+  },
+
+  methods: {
+    getNotifications() {
+      axios
+        .get('/api/notifications/')
+        .then((response) => {
+          console.log(response.data);
+
+          this.notifications = response.data;
+        })
+        .catch((error) => {
+          console.log('Error: ', error);
+        });
     },
 
-    mounted() {
-        this.getNotifications()
+    async readNotification(notification) {
+      console.log('readNotification', notification.id);
+
+      await axios
+        .post(`/api/notifications/read/${notification.id}/`)
+        .then((response) => {
+          console.log(response.data);
+
+          if (
+            notification.type_of_notification === 'post_like'
+                        || notification.type_of_notification === 'post_comment'
+          ) {
+            this.$router.push({
+              name: 'postview',
+              params: { id: notification.post_id },
+            });
+          } else {
+            this.$router.push({
+              name: 'friends',
+              params: { id: notification.created_for_id },
+            });
+          }
+        })
+        .catch((error) => {
+          console.log('Error: ', error);
+        });
     },
-
-    methods: {
-        getNotifications() {
-            axios
-                .get('/api/notifications/')
-                .then((response) => {
-                    console.log(response.data)
-
-                    this.notifications = response.data
-                })
-                .catch((error) => {
-                    console.log('Error: ', error)
-                })
-        },
-
-        async readNotification(notification) {
-            console.log('readNotification', notification.id)
-
-            await axios
-                .post(`/api/notifications/read/${notification.id}/`)
-                .then((response) => {
-                    console.log(response.data)
-
-                    if (
-                        notification.type_of_notification == 'post_like' ||
-                        notification.type_of_notification == 'post_comment'
-                    ) {
-                        this.$router.push({
-                            name: 'postview',
-                            params: { id: notification.post_id }
-                        })
-                    } else {
-                        this.$router.push({
-                            name: 'friends',
-                            params: { id: notification.created_for_id }
-                        })
-                    }
-                })
-                .catch((error) => {
-                    console.log('Error: ', error)
-                })
-        }
-    }
-}
+  },
+};
 </script>

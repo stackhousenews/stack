@@ -8,7 +8,7 @@ django.setup()
 
 from substack import models as smds
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 from datetime import datetime
 
 def scrape():
@@ -44,6 +44,17 @@ def scrape():
             
     thisrun.finished_at = datetime.now()
     thisrun.status = "Finished"
-    thisrun.save()            
+    thisrun.save()
 
-scrape()
+def active():
+    author = smds.Author.objects.get(name="Cauf")
+    print("Running...")
+    qry = smds.Story.objects.exclude(author=author)
+    for art in qry:
+        art.source.active = False
+        art.source.save()
+        print(art)
+        art.save()
+
+active()
+            

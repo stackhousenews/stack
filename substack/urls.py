@@ -1,9 +1,11 @@
 from django.urls import path, include
-from .api import StoryAPIView, DiogenesCheckStatusAPIView
+from .api import StoryAPIView, DiogenesCheckStatusAPIView, AskDiogenesAPIView, DiogenesHeadlinesAPIView
 
 urlpatterns = [
  
     path("stories/", StoryAPIView.as_view(), name="stories"),
     path("diogenes/check_status/", DiogenesCheckStatusAPIView.as_view(), name="diogenes-check-status"),
+    path("diogenes/ask/", AskDiogenesAPIView.as_view(), name="ask-diogenes"),
+    path("diogenes/headlines/", DiogenesHeadlinesAPIView.as_view(), name="headlines-diogenes"),
 
 ]

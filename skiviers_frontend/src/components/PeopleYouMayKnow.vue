@@ -27,32 +27,32 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
-    data() {
-        return {
-            users: []
-        }
+  data() {
+    return {
+      users: [],
+    };
+  },
+
+  mounted() {
+    this.getFriendSuggestions();
+  },
+
+  methods: {
+    getFriendSuggestions() {
+      axios
+        .get('/api/friends/suggested/')
+        .then((response) => {
+          console.log(response.data);
+
+          this.users = response.data;
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
     },
-
-    mounted() {
-        this.getFriendSuggestions()
-    },
-
-    methods: {
-        getFriendSuggestions() {
-            axios
-                .get('/api/friends/suggested/')
-                .then((response) => {
-                    console.log(response.data)
-
-                    this.users = response.data
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        }
-    }
-}
+  },
+};
 </script>

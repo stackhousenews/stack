@@ -1,13 +1,45 @@
-/* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
-
 module.exports = {
-    root: true,
-    env: {
-        node: true
+
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'airbnb-base',
+    'plugin:vue/vue3-essential',
+  ],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: [
+        '.eslintrc.{js,cjs}',
+      ],
+      parserOptions: {
+        sourceType: 'script',
+      },
     },
-    extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:prettier/recommended'],
-    parserOptions: {
-        ecmaVersion: 'latest'
-    }
-}
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: [
+    'vue',
+  ],
+  rules: {
+    'vue/multi-word-component-names': 'off',
+    'max-len': 'off',
+    'vue/max-len': [
+      'error',
+      {
+        code: 120,
+        template: 9000,
+        ignoreTemplateLiterals: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+      },
+    ],
+  },
+};

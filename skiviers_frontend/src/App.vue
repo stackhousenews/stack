@@ -1,44 +1,16 @@
 <template>
-    <v-app id="inspire">
-        <v-system-bar color="grey-darken-4 py-2">
-            <template v-if="isAuth">
-                <v-btn
-                    size="x-small"
-                    class="text-capitalize mr-2"
-                    prepend-icon="mdi-logout"
-                    :href="logoutLink"
-                    variant="outlined"
-                    >Signout</v-btn
-                >
-            </template>
+    <v-card rounded="0" tile flat>
+      <v-toolbar
+        color="primary"
+        dark
+        extended
+        extension-height="64"
+        flat
+        rounded="0" tile
+      >
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-            <template v-else>
-                <div class="text-caption">
-                    <a class="text-decoration-underline" :href="signupLink">Signup</a> or
-                    <a class="text-decoration-underline" :href="loginLink">Login</a> with:
-                </div>
-                <v-btn
-                    size="x-small"
-                    class="text-capitalize mr-2 ml-2"
-                    href="https://stackhouse.news/accounts/twitter/login/"
-                    variant="outlined"
-                >
-                    <font-awesome-icon icon="fa-brands fa-x-twitter" class="mr-2" />
-                    X/Twitter</v-btn
-                >
-                <v-btn
-                    size="x-small"
-                    class="text-capitalize mr-2"
-                    prepend-icon="mdi-google"
-                    href="https://stackhouse.news/accounts/google/login/"
-                    variant="outlined"
-                    >Google</v-btn
-                >
-            </template>
-        </v-system-bar>
-
-        <v-app-bar color="grey-lighten-4" flat height="72">
-            <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
+        <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
                 ><v-img
                     src="https://stackhouse.s3.us-east-2.amazonaws.com/static/stackhouse_blue.png"
                     alt="Stackhouse"
@@ -46,302 +18,271 @@
             ></v-avatar>
             <a
                 href="#"
-                class="text-4xl ml-2 mr-4"
-                style="font-family: 'Oswald', serif; color: #003594"
+                class="text-3xl ml-2 mr-4"
+                style="font-family: 'Oswald', serif; color: #ffffff"
                 >STACKHOUSE</a
             >
 
-            <RouterLink to="/feed" v-if="mdAndUp"
-                ><v-btn
-                    class="me-2"
-                    height="40"
-                    variant="flat"
-                    prepend-icon="mdi-home-outline"
-                    color="grey-lighten-4"
-                    >Home
-                </v-btn></RouterLink
-            >
+      </v-toolbar>
 
-            <RouterLink to="/feed" v-if="mdAndUp"
-                ><v-btn class="me-2" height="40" variant="flat" color="grey-lighten-4">
-                    <svg-icon type="mdi" size="16" :path="substack" class="mr-2"></svg-icon>
-                    Bookmarks
-                </v-btn>
-            </RouterLink>
+      <v-card
+        class="mx-auto mb-2"
+        max-width="1200"
+        style="margin-top: -64px;"
+        :flat="!diogenesReply"
+        tile
+      >
+        <v-toolbar flat>
+            <v-avatar class="ms-2" rounded variant="flat"
+            ><svg-icon type="mdi" :path="lantern"></svg-icon
+        ></v-avatar>
 
-            <v-spacer></v-spacer>
+          <v-toolbar-title class="text-grey">
+            <TypewriterComponent v-if="showTypewriter" @click="showTypewriter = false" />
 
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        </v-app-bar>
+    <v-text-field v-model="askQuestion" class="mt-2" tile variant="plain" dense autofocus v-if="!showTypewriter" placeholder="Ask something"></v-text-field>
 
-        <v-footer app color="grey" height="44" :absolute="!mdAndUp"></v-footer>
+          </v-toolbar-title>
 
-        <v-navigation-drawer v-model="drawer" location="right" temporary>
-            <RouterLink to="/feed"
-                ><v-btn
-                    class="me-2"
-                    height="40"
-                    variant="flat"
-                    prepend-icon="mdi-home-outline"
-                    color="grey-lighten-4"
-                    >Home
-                </v-btn></RouterLink
-            >
+          <v-spacer v-if="!showTypewriter"></v-spacer>
+          <v-btn v-if="!showTypewriter&& !processing" @click="question=askQuestion;askDiogenes()">
 
-            <RouterLink to="/feed"
-                ><v-btn class="me-2" height="40" variant="flat" color="grey-lighten-4">
-                    <svg-icon type="mdi" size="16" :path="substack" class="mr-2"></svg-icon>
-                    Bookmarks
-                </v-btn>
-            </RouterLink>
-        </v-navigation-drawer>
+            Send
 
-        <v-navigation-drawer floating>
-            <div class="d-flex px-2 my-2">
-                <v-btn class="flex-grow-1" color="grey" height="40" variant="flat"
-                    ><span class="" style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-                        >AI ASSISTANT</span
-                    ></v-btn
-                >
+        </v-btn>
 
-                <v-avatar class="ms-2" color="surface-variant" rounded variant="flat"
-                    ><svg-icon type="mdi" :path="lantern"></svg-icon
-                ></v-avatar>
-            </div>
+        <div class="text-center" v-if="processing">
+    <v-progress-circular
+      color="primary"
+      indeterminate
+      size=24 width="4"
+    ></v-progress-circular>
+    </div>
+          <v-btn v-if="!showTypewriter&& !processing" @click="askQuestion=null;diogenesReply=null;">Clear</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
 
-            <div class="d-flex px-2 my-2 align-center">
-                <v-btn color="grey-lighten-4" variant="flat" height="40" class="flex-grow-1 me-2"
-                    ><span class="" style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-                        >NEWSLETTERS</span
-                    ></v-btn
-                >
+          <v-btn icon>
+            <v-icon>mdi-apps</v-icon>
+          </v-btn>
 
-                <v-avatar color="surface-variant" size="18"></v-avatar>
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-toolbar>
 
-                <v-avatar class="ms-1" color="surface-variant" size="18"></v-avatar>
-            </div>
+        <v-divider></v-divider>
 
-            <div class="px-2 my-2">
-                <v-text-field
-                    class="mb-4"
-                    density="compact"
-                    flat
-                    hide-details
-                    prepend-inner-icon="mdi-magnify"
-                    variant="solo-filled"
-                ></v-text-field>
+        <v-card flat color="grey-lighten-3" v-if="diogenesReply">
 
-                <v-sheet
-                    class="mb-2"
-                    color="surface-variant"
-                    height="24"
-                    rounded="pill"
-                    width="50%"
-                ></v-sheet>
+        <v-card-text>
+        {{ diogenesReply }}
+        </v-card-text></v-card>
 
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="40%"
-                ></v-sheet>
+        <v-sheet :class="!mobile ? 'mx-auto pa-2 pt-2' : 'mx-auto'" color="grey-lighten-4">
+            <v-row no-gutters>
 
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="20%"
-                ></v-sheet>
-
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="90%"
-                ></v-sheet>
-
-                <v-sheet color="grey-lighten-1" height="12" rounded="pill" width="70%"></v-sheet>
-
-                <v-divider class="my-6"></v-divider>
-
-                <v-sheet
-                    class="mb-2"
-                    color="surface-variant"
-                    height="24"
-                    rounded="pill"
-                    width="30%"
-                ></v-sheet>
-
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="65%"
-                ></v-sheet>
-
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="70%"
-                ></v-sheet>
-
-                <v-sheet
-                    class="mb-1"
-                    color="grey-lighten-1"
-                    height="12"
-                    rounded="pill"
-                    width="40%"
-                ></v-sheet>
-
-                <v-sheet color="grey-lighten-1" height="12" rounded="pill" width="100%"></v-sheet>
-
-                <v-divider class="my-6"></v-divider>
-            </div>
-        </v-navigation-drawer>
-
-        <v-main>
-            <v-sheet :class="mdAndUp ? 'mx-auto pa-2 pt-2' : 'mx-auto'" color="grey-lighten-4">
+<v-col cols="8" lg="8" md="8">
                 <span
-                    v-if="mdAndUp"
+                    v-if="!mobile"
                     class="text-xl ml-2 mr-4"
                     style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                     >TOP STORIES</span
                 >
 
-                <TopStoriesComponent :top_posts="top_posts" />
+                <TopStoriesComponent :top_posts="top_posts" :lgAndUp="lgAndUp" :mobile="mobile" />
+
+            </v-col>
+        <v-col cols="4" lg="4" md="4">
+
+                        <v-card height="670px" class="mt-1 pb-0" color="#e8e4db">
+
+<v-card-title class="text-center mt-2 mb-2"><span
+                class="text-3xl"
+                style="font-family: 'UnifrakturCook', cursive"
+                >The Rubicon Lantern</span
+            ></v-card-title>
+
+            <div v-for="hl in headlines">
+            <v-card-text style="font-family: 'Lato', sans-serif;">
+                    {{ hl.headline }}
+
+            </v-card-text>
+
+            <hr style="border-top: 1px solid #cccccc; margin: 0px 10px 0px 10px">
+          </div>
+                        </v-card>
+
+</v-col>
+    </v-row>
             </v-sheet>
 
-            <v-sheet :class="mdAndUp ? 'mx-auto pa-2 pt-4' : 'mx-auto pt-2'" color="grey-lighten-2">
+            <v-sheet :class="lgAndUp ? 'mx-auto pa-2 pt-4' : 'mx-auto pt-2'" color="grey-lighten-2">
                 <span
                     class="text-xl ml-2 mr-4"
                     style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                     >FEATURED</span
                 >
 
-                <FeaturedComponent :featured_posts="featured_posts" />
+                <FeaturedComponent :featured_posts="featured_posts" :lgAndUp="lgAndUp" />
 
-                <v-container :fluid="mdAndUp" :class="mdAndUp ? 'mt-4' : 'mx-0 px-2'">
+                <v-container :fluid="lgAndUp" :class="lgAndUp ? 'mt-4' : 'mx-0 px-2'">
                     <span
-                        :class="mdAndUp ? 'text-xl ml-2' : 'text-xl'"
+                        :class="lgAndUp ? 'text-xl ml-2' : 'text-xl'"
                         style="font-family: 'Montserrat', sans-serif; font-weight: 500"
                         >LATEST</span
                     >
-                    <LatestComponent :latest_posts="latest_posts" />
+                    <LatestComponent :latest_posts="latest_posts" :lgAndUp="lgAndUp" />
                 </v-container>
             </v-sheet>
-        </v-main>
-    </v-app>
-</template>
+
+      </v-card>
+
+    </v-card>
+
+  </template>
 
 <script>
-import axios from 'axios'
-import ToastComponent from '@/components/ToastComponent.vue'
-import TopStoriesComponent from '@/components/TopStoriesComponent.vue'
-import FeaturedComponent from '@/components/FeaturedComponent.vue'
-import LatestComponent from '@/components/LatestComponent.vue'
-import { ref } from 'vue'
-import SvgIcon from '@jamescoyle/vue-icon'
+import axios from 'axios';
+import { ref } from 'vue';
+import SvgIcon from '@jamescoyle/vue-icon';
 import {
-    mdiPostLamp,
-    mdiHomeOutline,
-    mdiBookmarkMultipleOutline,
-    mdiMagnify,
-    mdiBellOutline
-} from '@mdi/js'
-import { useDisplay } from 'vuetify'
+  mdiPostLamp,
+  mdiHomeOutline,
+  mdiBookmarkMultipleOutline,
+  mdiMagnify,
+  mdiBellOutline,
+} from '@mdi/js';
+import { useDisplay } from 'vuetify';
+import TopStoriesComponent from '@/components/TopStoriesComponent.vue';
+import FeaturedComponent from '@/components/FeaturedComponent.vue';
+import LatestComponent from '@/components/LatestComponent.vue';
+import TypewriterComponent from '@/components/App/TypewriterComponent.vue';
 
 export default {
-    setup() {
-        const isAuth = ref([])
-        const { mdAndUp } = useDisplay()
+  setup() {
+    const isAuth = ref(false);
+    const { name, lgAndUp, mobile } = useDisplay();
+    (async () => {
+      await axios
+        .get('/api/is_authenticated/')
+        .then((response) => {
+          res = response.data.message;
+          isAuth.value = true;
+        })
+        .catch((error) => {
+          console.log(error);
+          res = null;
+        });
+    })();
 
-        ;(async () => {
-            let res = null
-            await axios
-                .get('/api/is_authenticated/')
-                .then((response) => {
-                    res = response.data.message
-                })
-                .catch((error) => {
-                    console.log(error)
-                    res = null
-                })
-            isAuth.value = res
-        })()
+    document.title = 'Stackhouse | Scaling Truth, Scoping Tomorrow';
+    const drawer = false;
+    const group = null;
+    console.log(name);
 
-        document.title = 'Stackhouse | Scaling Truth, Scoping Tomorrow'
-        const loginLink = import.meta.env.VITE_API_URL && '/accounts/login/'
-        const signupLink = import.meta.env.VITE_API_URL && '/accounts/signup/'
-        const logoutLink = import.meta.env.VITE_API_URL && '/accounts/logout/'
-        let drawer = false
-        let group = null
+    return {
+      isAuth,
+      lantern: mdiPostLamp,
+      home: mdiHomeOutline,
+      substack: mdiBookmarkMultipleOutline,
+      search: mdiMagnify,
+      bell: mdiBellOutline,
+      drawer,
+      group,
+      lgAndUp,
+      mobile,
+    };
+  },
 
-        return {
-            loginLink,
-            signupLink,
-            logoutLink,
-            isAuth,
-            lantern: mdiPostLamp,
-            home: mdiHomeOutline,
-            substack: mdiBookmarkMultipleOutline,
-            search: mdiMagnify,
-            bell: mdiBellOutline,
-            drawer,
-            group,
-            mdAndUp
-        }
+  data() {
+    return {
+      top_posts: [],
+      featured_posts: [],
+      latest_posts: [],
+      showTypewriter: true,
+      diogenesReply: null,
+      question: null,
+      askQuestion: null,
+      processing: null,
+      headlines: null,
+
+    };
+  },
+
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
+
+  components: {
+    TopStoriesComponent,
+    FeaturedComponent,
+    LatestComponent,
+    SvgIcon,
+    TypewriterComponent,
+  },
+  mounted() {
+    this.getFeed();
+    this.getHeadlines();
+  },
+
+  methods: {
+    getFeed() {
+      axios
+        .get('/api/content/stories/')
+        .then((response) => {
+          if (this.mobile || this.lgAndUp) {
+            this.top_posts = response.data.results.slice(0, 4);
+            this.featured_posts = response.data.results.slice(4, 7);
+            this.latest_posts = response.data.results.slice(7, 31);
+          } else {
+            this.top_posts = response.data.results.slice(0, 3);
+            this.featured_posts = response.data.results.slice(3, 6);
+            this.latest_posts = response.data.results.slice(6, 34);
+          }
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    },
+    askDiogenes() {
+      this.processing = 1;
+      this.diogenesReply = null;
+      axios.post('/api/content/diogenes/ask/', {
+        question: this.askQuestion,
+      })
+        .then((response) => {
+          console.log(response);
+          this.diogenesReply = response.data;
+          this.processing = null;
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.processing = null;
+        });
     },
 
-    data() {
-        return {
-            top_posts: [],
-            featured_posts: [],
-            latest_posts: []
-        }
+    getHeadlines() {
+      axios
+        .get('/api/posts/news/')
+        .then((response) => {
+          this.headlines = response.data;
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
     },
-
-    watch: {
-        group() {
-            this.drawer = false
-        }
-    },
-
-    components: {
-        ToastComponent,
-        TopStoriesComponent,
-        FeaturedComponent,
-        LatestComponent,
-        SvgIcon
-    },
-    mounted() {
-        this.getFeed()
-    },
-
-    methods: {
-        getFeed() {
-            axios
-                .get('/api/content/stories/')
-                .then((response) => {
-                    this.top_posts = response.data.results.slice(0, 3)
-                    this.featured_posts = response.data.results.slice(3, 7)
-                    this.latest_posts = response.data.results.slice(7, 31)
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        }
-    }
-}
+  },
+};
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
 .v-card-item__content .v-card-title {
     font-size: 14px !important;

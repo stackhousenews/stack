@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 from user_account.models import User, FriendshipRequest
 from user_account.serializers import UserSerializer
@@ -10,6 +12,8 @@ from notification.utils import create_notification
 from .forms import PostForm, AttachmentForm
 from .models import Post, Like, Comment, Trend
 from .serializers import PostSerializer, PostDetailSerializer, CommentSerializer, TrendSerializer
+
+from core.diogenes import check_status
 
 
 @api_view(['GET'])
@@ -154,9 +158,18 @@ def post_report(request, pk):
 
     return JsonResponse({'message': 'post reported'})
 
-
 @api_view(['GET'])
 def get_trends(request):
     serializer = TrendSerializer(Trend.objects.all(), many=True)
 
     return JsonResponse(serializer.data, safe=False)
+
+class HeadlinesAPIView(APIView):
+    permission_classes=[AllowAny]
+
+    def get(self,request):
+        posts = Post.objects.all()[0:9]
+
+        serializer = PostSerializer(posts, many=True)
+
+        return JsonResponse(serializer.data, safe=False)

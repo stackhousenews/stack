@@ -15,41 +15,41 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
-    name: 'FeedView',
+  name: 'FeedView',
 
-    components: {},
+  components: {},
 
-    data() {
-        return {
-            posts: [],
-            body: ''
-        }
+  data() {
+    return {
+      posts: [],
+      body: '',
+    };
+  },
+
+  mounted() {
+    this.getFeed();
+  },
+
+  methods: {
+    getFeed() {
+      axios
+        .get('/api/posts/')
+        .then((response) => {
+          console.log('data', response.data);
+
+          this.posts = response.data;
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
     },
 
-    mounted() {
-        this.getFeed()
+    deletePost(id) {
+      this.posts = this.posts.filter((post) => post.id !== id);
     },
-
-    methods: {
-        getFeed() {
-            axios
-                .get('/api/posts/')
-                .then((response) => {
-                    console.log('data', response.data)
-
-                    this.posts = response.data
-                })
-                .catch((error) => {
-                    console.log('error', error)
-                })
-        },
-
-        deletePost(id) {
-            this.posts = this.posts.filter((post) => post.id !== id)
-        }
-    }
-}
+  },
+};
 </script>

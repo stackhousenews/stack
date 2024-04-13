@@ -41,6 +41,8 @@ class PostAttachment(models.Model):
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     body = models.TextField(blank=True, null=True)
+    headline = models.TextField(blank=True, null=True)
+
 
     attachments = models.ManyToManyField(PostAttachment, blank=True)
 
@@ -55,7 +57,7 @@ class Post(models.Model):
     reported_by_users = models.ManyToManyField(User, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ('-created_at',)

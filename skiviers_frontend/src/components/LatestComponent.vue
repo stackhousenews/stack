@@ -1,20 +1,21 @@
 <template>
-    <v-row :class="mdAndUp ? 'mt-2' : 'mt-1'">
+    <v-row :class="lgAndUp ? 'mt-2' : 'mt-1'">
         <v-col
             v-for="post in latest_posts"
             :key="post.id"
             cols="12"
-            md="2"
-            :class="mdAndUp ? '' : 'pb-1'"
+            md="3"
+            xl="2"
+            :class="lgAndUp ? '' : 'pb-1'"
         >
-            <v-sheet color="grey-lighten-" :height="mdAndUp ? 200 : 140" rounded>
+            <v-sheet color="grey-lighten-" :height="lgAndUp ? 180 : 140" rounded>
                 <v-card
                     class="mx-auto"
                     color="#e8e4db"
                     hover
                     :href="post.link"
                     target="_blank"
-                    :height="mdAndUp ? 200 : 140"
+                    :height="lgAndUp ? 180 : 140"
                 >
                     <div class="ml-2 mt-2" style="font-size: 60%">
                         {{ post.source }} - {{ post.published }}
@@ -56,13 +57,16 @@
 
 <script>
 export default {
-    props: {
-        latest_posts: Array,
-        required: true
+  props: {
+    latest_posts: { type: Array, required: true },
+    lgAndUp: {
+      type: Boolean,
+      required: true,
     },
-    components: {},
-    data() {
-        return {}
-    }
-}
+  },
+  components: {},
+  data() {
+    return {};
+  },
+};
 </script>

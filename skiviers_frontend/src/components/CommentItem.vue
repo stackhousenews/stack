@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
 
 export default {
-    props: {
-        comment: Object
-    },
-    components: { RouterLink }
-}
+  props: {
+    comment: Object,
+  },
+  components: { RouterLink },
+};
 </script>
