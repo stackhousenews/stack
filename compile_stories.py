@@ -25,6 +25,5 @@ def compile():
                 f.close()
         except FileNotFoundError:
             print("The 'docs' directory does not exist")
-            
 
 compile()
