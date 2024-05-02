@@ -47,7 +47,7 @@ const router = createRouter({
       component: EditPasswordView,
     },
     {
-      path: '/:id',
+      path: '/post/:id',
       name: 'postview',
       component: PostView,
     },

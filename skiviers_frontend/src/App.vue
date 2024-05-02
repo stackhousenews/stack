@@ -1,14 +1,16 @@
 <template>
-    <v-card rounded="0" tile flat>
+    <v-card rounded="0" tile flat color="#DAD4C6" image="https://images.unsplash.com/photo-1714508862788-44e45c4315d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+     
       <v-toolbar
-        color="primary"
+        color="blue-grey"
         dark
         extended
         extension-height="64"
         flat
         rounded="0" tile
-      >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        image="https://images.unsplash.com/photo-1714419991258-7172e140af4d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        
+      >           <v-spacer></v-spacer>
 
         <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
                 ><v-img
@@ -23,259 +25,58 @@
                 >STACKHOUSE</a
             >
 
+            <v-spacer></v-spacer>
       </v-toolbar>
 
       <v-card
+      
         class="mx-auto mb-2"
-        max-width="1200"
+        max-width="1300"
         style="margin-top: -64px;"
-        :flat="!diogenesReply"
         tile
       >
-        <v-toolbar flat>
-            <v-avatar class="ms-2" rounded variant="flat"
-            ><svg-icon type="mdi" :path="lantern"></svg-icon
-        ></v-avatar>
+        <v-sheet color="#DAD4C6" class="px-4 py-2">
 
-          <v-toolbar-title class="text-grey">
-            <TypewriterComponent v-if="showTypewriter" @click="showTypewriter = false" />
 
-    <v-text-field v-model="askQuestion" class="mt-2" tile variant="plain" dense autofocus v-if="!showTypewriter" placeholder="Ask something"></v-text-field>
+          <RouterView :key='$route.fullPath' />
 
-          </v-toolbar-title>
 
-          <v-spacer v-if="!showTypewriter"></v-spacer>
-          <v-btn v-if="!showTypewriter&& !processing" @click="question=askQuestion;askDiogenes()">
-
-            Send
-
-        </v-btn>
-
-        <div class="text-center" v-if="processing">
-    <v-progress-circular
-      color="primary"
-      indeterminate
-      size=24 width="4"
-    ></v-progress-circular>
-    </div>
-          <v-btn v-if="!showTypewriter&& !processing" @click="askQuestion=null;diogenesReply=null;">Clear</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-apps</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </v-toolbar>
-
-        <v-divider></v-divider>
-
-        <v-card flat color="grey-lighten-3" v-if="diogenesReply">
-
-        <v-card-text>
-        {{ diogenesReply }}
-        </v-card-text></v-card>
-
-        <v-sheet :class="!mobile ? 'mx-auto pa-2 pt-2' : 'mx-auto'" color="grey-lighten-4">
-            <v-row no-gutters>
-
-<v-col cols="8" lg="8" md="8">
-                <span
-                    v-if="!mobile"
-                    class="text-xl ml-2 mr-4"
-                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-                    >TOP STORIES</span
-                >
-
-                <TopStoriesComponent :top_posts="top_posts" :lgAndUp="lgAndUp" :mobile="mobile" />
-
-            </v-col>
-        <v-col cols="4" lg="4" md="4">
-
-                        <v-card height="670px" class="mt-1 pb-0" color="#e8e4db">
-
-<v-card-title class="text-center mt-2 mb-2"><span
-                class="text-3xl"
-                style="font-family: 'UnifrakturCook', cursive"
-                >The Rubicon Lantern</span
-            ></v-card-title>
-
-            <div v-for="hl in headlines">
-            <v-card-text style="font-family: 'Lato', sans-serif;">
-                    {{ hl.headline }}
-
-            </v-card-text>
-
-            <hr style="border-top: 1px solid #cccccc; margin: 0px 10px 0px 10px">
-          </div>
-                        </v-card>
-
-</v-col>
-    </v-row>
-            </v-sheet>
-
-            <v-sheet :class="lgAndUp ? 'mx-auto pa-2 pt-4' : 'mx-auto pt-2'" color="grey-lighten-2">
-                <span
-                    class="text-xl ml-2 mr-4"
-                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-                    >FEATURED</span
-                >
-
-                <FeaturedComponent :featured_posts="featured_posts" :lgAndUp="lgAndUp" />
-
-                <v-container :fluid="lgAndUp" :class="lgAndUp ? 'mt-4' : 'mx-0 px-2'">
-                    <span
-                        :class="lgAndUp ? 'text-xl ml-2' : 'text-xl'"
-                        style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-                        >LATEST</span
-                    >
-                    <LatestComponent :latest_posts="latest_posts" :lgAndUp="lgAndUp" />
-                </v-container>
             </v-sheet>
 
       </v-card>
 
     </v-card>
+   <v-card tile rounded="0" color="blue-grey"><v-card-text class="text-center caption">Stackhouse News 2024 - All Rights Reserved - <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/terms_of_service.html">Terms of Service</a> - <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/privacy_policy.html">Privacy Policy</a></v-card-text></v-card>
 
   </template>
 
 <script>
-import axios from 'axios';
-import { ref } from 'vue';
-import SvgIcon from '@jamescoyle/vue-icon';
-import {
-  mdiPostLamp,
-  mdiHomeOutline,
-  mdiBookmarkMultipleOutline,
-  mdiMagnify,
-  mdiBellOutline,
-} from '@mdi/js';
-import { useDisplay } from 'vuetify';
-import TopStoriesComponent from '@/components/TopStoriesComponent.vue';
-import FeaturedComponent from '@/components/FeaturedComponent.vue';
-import LatestComponent from '@/components/LatestComponent.vue';
-import TypewriterComponent from '@/components/App/TypewriterComponent.vue';
+import SystemBarComponent from '@/components/App/SystemBarComponent.vue';
 
 export default {
   setup() {
-    const isAuth = ref(false);
-    const { name, lgAndUp, mobile } = useDisplay();
-    (async () => {
-      await axios
-        .get('/api/is_authenticated/')
-        .then((response) => {
-          res = response.data.message;
-          isAuth.value = true;
-        })
-        .catch((error) => {
-          console.log(error);
-          res = null;
-        });
-    })();
 
     document.title = 'Stackhouse | Scaling Truth, Scoping Tomorrow';
-    const drawer = false;
-    const group = null;
-    console.log(name);
 
     return {
-      isAuth,
-      lantern: mdiPostLamp,
-      home: mdiHomeOutline,
-      substack: mdiBookmarkMultipleOutline,
-      search: mdiMagnify,
-      bell: mdiBellOutline,
-      drawer,
-      group,
-      lgAndUp,
-      mobile,
+
     };
   },
 
   data() {
     return {
-      top_posts: [],
-      featured_posts: [],
-      latest_posts: [],
-      showTypewriter: true,
-      diogenesReply: null,
-      question: null,
-      askQuestion: null,
-      processing: null,
-      headlines: null,
 
     };
   },
 
-  watch: {
-    group() {
-      this.drawer = false;
-    },
+  components: {
+
+    SystemBarComponent,
   },
 
-  components: {
-    TopStoriesComponent,
-    FeaturedComponent,
-    LatestComponent,
-    SvgIcon,
-    TypewriterComponent,
-  },
-  mounted() {
-    this.getFeed();
-    this.getHeadlines();
-  },
 
   methods: {
-    getFeed() {
-      axios
-        .get('/api/content/stories/')
-        .then((response) => {
-          if (this.mobile || this.lgAndUp) {
-            this.top_posts = response.data.results.slice(0, 4);
-            this.featured_posts = response.data.results.slice(4, 7);
-            this.latest_posts = response.data.results.slice(7, 31);
-          } else {
-            this.top_posts = response.data.results.slice(0, 3);
-            this.featured_posts = response.data.results.slice(3, 6);
-            this.latest_posts = response.data.results.slice(6, 34);
-          }
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
-    },
-    askDiogenes() {
-      this.processing = 1;
-      this.diogenesReply = null;
-      axios.post('/api/content/diogenes/ask/', {
-        question: this.askQuestion,
-      })
-        .then((response) => {
-          console.log(response);
-          this.diogenesReply = response.data;
-          this.processing = null;
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.processing = null;
-        });
-    },
 
-    getHeadlines() {
-      axios
-        .get('/api/posts/news/')
-        .then((response) => {
-          this.headlines = response.data;
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
-    },
   },
 };
 </script>

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', api.post_list, name='post_list'),
     path('news/', api.HeadlinesAPIView.as_view(), name='post_news'),
     path('<uuid:pk>/', api.post_detail, name='post_detail'),
+    path('view/<uuid:pk>/', api.OnePostAPIView.as_view(), name='view_post'),
     path('<uuid:pk>/like/', api.post_like, name='post_like'),
     path('<uuid:pk>/comment/', api.post_create_comment, name='post_create_comment'),
     path('<uuid:pk>/delete/', api.post_delete, name='post_delete'),

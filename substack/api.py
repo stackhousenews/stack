@@ -2,6 +2,7 @@ from rest_framework import generics, pagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.http import JsonResponse
 
 from . import serializers as szrs
 from . import models as smds
@@ -19,6 +20,18 @@ class StoryAPIView(generics.ListAPIView):
     queryset = smds.Story.objects.exclude(source__active=False)
     pagination_class = Pagination
     permission_classes = [AllowAny]
+
+class OneStoryAPIView(APIView):
+    """Provides the onse story."""
+    permission_classes = [AllowAny]
+
+    def get(self, request, slug):
+        story = smds.Story.objects.get(slug=slug)
+
+        return JsonResponse({
+            'post': szrs.StorySerializer(story).data
+        })
+
 
 class DiogenesCheckStatusAPIView(generics.GenericAPIView):
     """Create a Tweet."""

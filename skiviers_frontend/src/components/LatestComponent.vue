@@ -1,56 +1,43 @@
 <template>
-    <v-row :class="lgAndUp ? 'mt-2' : 'mt-1'">
+    <v-row>
         <v-col
             v-for="post in latest_posts"
             :key="post.id"
             cols="12"
-            md="3"
-            xl="2"
-            :class="lgAndUp ? '' : 'pb-1'"
+            md="4"
+            xl="4"
+            class="mb-0 mx-auto pb-0 px-1"
         >
-            <v-sheet color="grey-lighten-" :height="lgAndUp ? 180 : 140" rounded>
+        <router-link :to="{ name: 'postview', params: { id: post.id }}">
+                        
                 <v-card
-                    class="mx-auto"
-                    color="#e8e4db"
+                    class=""
+                    color="#DAD4C6"
                     hover
-                    :href="post.link"
-                    target="_blank"
-                    :height="lgAndUp ? 180 : 140"
+                    height="100%"
                 >
                     <div class="ml-2 mt-2" style="font-size: 60%">
-                        {{ post.source }} - {{ post.published }}
+                        {{ post.published }}
                     </div>
-                    <v-card-title class="justify-end" style="line-height: 120%">
+                    <v-card-title class="justify-end" style="line-height: 140%">
                         <span
-                            v-if="post.title.length < 60"
                             class="d-flex text-wrap mb-1 mr-2"
-                            style="font-family: 'Playfair Display', serif; font-size: 110%"
-                            >{{ post.title }}</span
+                            style="font-family: 'Playfair Display', serif; font-size: 120%"
+                            >{{ post.headline }}</span
                         >
-                        <span
-                            v-else
-                            class="d-flex text-wrap mb-1 mr-2"
-                            style="font-family: 'Playfair Display', serif; font-size: 90%"
-                            >{{ post.title }}</span
-                        >
+
                     </v-card-title>
 
                     <v-card-subtitle>
                         <span
-                            v-if="post.title.length + post.subtitle.length < 128"
                             class="d-flex text-wrap"
                             style="font-family: 'Lato', sans-serif"
-                            >{{ post.subtitle }}</span
+                            >{{ post.abstract }}</span
                         >
-                        <span
-                            v-else
-                            class="d-flex text-wrap"
-                            style="font-family: 'Lato', sans-serif"
-                            >{{ post.subtitle.slice(0, 128 - post.title.length) }}...</span
-                        >
+
                     </v-card-subtitle>
-                </v-card>
-            </v-sheet>
+                </v-card></router-link>
+
         </v-col>
     </v-row>
 </template>
@@ -59,10 +46,7 @@
 export default {
   props: {
     latest_posts: { type: Array, required: true },
-    lgAndUp: {
-      type: Boolean,
-      required: true,
-    },
+
   },
   components: {},
   data() {

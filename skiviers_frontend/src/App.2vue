@@ -1,0 +1,205 @@
+<template>
+    <v-app id="inspire">
+        <SystemBarComponent :isAuth="isAuth" />
+        <v-app-bar color="grey-lighten-4" flat height="72">
+            <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
+                ><v-img
+                    src="https://stackhouse.s3.us-east-2.amazonaws.com/static/stackhouse_blue.png"
+                    alt="Stackhouse"
+                ></v-img
+            ></v-avatar>
+            <a
+                href="#"
+                class="text-4xl ml-2 mr-4"
+                style="font-family: 'Oswald', serif; color: #003594"
+                >STACKHOUSE</a
+            >
+
+            <MainMenuComponent :substack="substack" v-if="!mobile" />
+
+            <v-spacer></v-spacer>
+
+            <v-app-bar-nav-icon v-if="mobile" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        </v-app-bar>
+
+        <v-navigation-drawer v-if="mobile" v-model="drawer" location="right" temporary>
+            <MainMenuComponent :substack="substack" />
+        </v-navigation-drawer>
+
+        <v-navigation-drawer floating>
+            <LeftPanelComponent :lantern="lantern" :isAuth="isAuth" />
+        </v-navigation-drawer>
+
+        <v-main>
+            <v-sheet :class="!mobile ? 'mx-auto pa-2 pt-2' : 'mx-auto'" color="grey-lighten-4">
+                <span
+                    v-if="!mobile"
+                    class="text-xl ml-2 mr-4"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                    >TOP STORIES</span
+                >
+
+                <TopStoriesComponent :top_posts="top_posts" :lgAndUp="lgAndUp" :mobile="mobile" />
+            </v-sheet>
+
+            <v-sheet :class="lgAndUp ? 'mx-auto pa-2 pt-4' : 'mx-auto pt-2'" color="grey-lighten-2">
+                <span
+                    class="text-xl ml-2 mr-4"
+                    style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                    >FEATURED</span
+                >
+
+                <FeaturedComponent :featured_posts="featured_posts" :lgAndUp="lgAndUp" />
+
+                <v-container :fluid="lgAndUp" :class="lgAndUp ? 'mt-4' : 'mx-0 px-2'">
+                    <span
+                        :class="lgAndUp ? 'text-xl ml-2' : 'text-xl'"
+                        style="font-family: 'Montserrat', sans-serif; font-weight: 500"
+                        >LATEST</span
+                    >
+                    <LatestComponent :latest_posts="latest_posts" :lgAndUp="lgAndUp" />
+                </v-container>
+            </v-sheet>
+            <v-footer color="grey" height="44"></v-footer>
+        </v-main>
+    </v-app>
+</template>
+
+<script>
+import axios from 'axios';
+import { ref } from 'vue';
+import SvgIcon from '@jamescoyle/vue-icon';
+import {
+  mdiPostLamp,
+  mdiHomeOutline,
+  mdiBookmarkMultipleOutline,
+  mdiMagnify,
+  mdiBellOutline,
+} from '@mdi/js';
+import { useDisplay } from 'vuetify';
+import ToastComponent from '@/components/ToastComponent.vue';
+import TopStoriesComponent from '@/components/TopStoriesComponent.vue';
+import FeaturedComponent from '@/components/FeaturedComponent.vue';
+import LatestComponent from '@/components/LatestComponent.vue';
+import SystemBarComponent from '@/components/App/SystemBarComponent.vue';
+import MainMenuComponent from '@/components/App/MainMenuComponent.vue';
+import LeftPanelComponent from '@/components/App/LeftPanelComponent.vue';
+
+export default {
+  setup() {
+    const isAuth = ref(false);
+    const { name, lgAndUp, mobile } = useDisplay();
+    (async () => {
+      let res = null;
+      await axios
+        .get('/api/is_authenticated/')
+        .then((response) => {
+          res = response.data.message;
+          isAuth.value = true;
+        })
+        .catch((error) => {
+          console.log(error);
+          res = null;
+        });
+    })();
+
+    document.title = 'Stackhouse | Scaling Truth, Scoping Tomorrow';
+    const drawer = false;
+    const group = null;
+    console.log(name);
+
+    return {
+      isAuth,
+      lantern: mdiPostLamp,
+      home: mdiHomeOutline,
+      substack: mdiBookmarkMultipleOutline,
+      search: mdiMagnify,
+      bell: mdiBellOutline,
+      drawer,
+      group,
+      lgAndUp,
+      mobile,
+    };
+  },
+
+  data() {
+    return {
+      top_posts: [],
+      featured_posts: [],
+      latest_posts: [],
+      drawer: false,
+    };
+  },
+
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
+
+  components: {
+    ToastComponent,
+    TopStoriesComponent,
+    FeaturedComponent,
+    LatestComponent,
+    SvgIcon,
+    SystemBarComponent,
+    MainMenuComponent,
+    LeftPanelComponent,
+  },
+  mounted() {
+    this.getFeed();
+  },
+
+  methods: {
+    getFeed() {
+      axios
+        .get('/api/content/stories/')
+        .then((response) => {
+          if (this.mobile || this.lgAndUp) {
+            this.top_posts = response.data.results.slice(0, 3);
+            this.featured_posts = response.data.results.slice(3, 6);
+            this.latest_posts = response.data.results.slice(6, 30);
+          } else {
+            this.top_posts = response.data.results.slice(0, 2);
+            this.featured_posts = response.data.results.slice(2, 5);
+            this.latest_posts = response.data.results.slice(5, 33);
+          }
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    },
+  },
+};
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
+
+.v-card-item__content .v-card-title {
+    font-size: 14px !important;
+    line-height: 1rem !important;
+    padding-left: 0 !important;
+}
+.v-card-item__content .v-card-subtitle {
+    font-size: 12px !important;
+    line-height: 1rem !important;
+    padding-left: 0 !important;
+}
+
+.v-card-item {
+    padding: 4 0 0 8 !important;
+    margin: 0 0 0 0 !important;
+}
+
+.v-card-title {
+    padding: 0 8 0 8 !important;
+}
+.v-card-subtitle {
+    padding: 0 8 4 8 !important;
+}
+.v-card-item__prepend {
+    padding-right: 6 !important;
+}
+</style>

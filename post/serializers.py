@@ -12,10 +12,17 @@ class PostAttachmentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-
+    published = serializers.SerializerMethodField()
+    
     class Meta:
         model = Post
-        fields = ('body','headline')
+        exclude = ()
+
+    def get_published(self, instance):
+        if instance.created_at:
+            return instance.created_at.strftime("%c")
+        else:
+            return None
 
 class CommentSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)

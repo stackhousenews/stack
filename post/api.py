@@ -48,6 +48,16 @@ def post_detail(request, pk):
         'post': PostDetailSerializer(post).data
     })
 
+class OnePostAPIView(APIView):
+    """Provides the onse story."""
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        post = Post.objects.get(pk=pk)
+
+        return JsonResponse({
+            'post': PostSerializer(post).data
+        })
 
 @api_view(['GET'])
 def post_list_profile(request, id):   
@@ -168,7 +178,7 @@ class HeadlinesAPIView(APIView):
     permission_classes=[AllowAny]
 
     def get(self,request):
-        posts = Post.objects.all()[0:9]
+        posts = Post.objects.all()[0:30]
 
         serializer = PostSerializer(posts, many=True)
 

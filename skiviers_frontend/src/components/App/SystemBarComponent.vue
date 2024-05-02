@@ -1,5 +1,5 @@
 <template>
-    <v-system-bar color="grey-darken-4 py-2">
+
         <template v-if="isAuth">
             <v-btn
                 size="x-small"
@@ -34,7 +34,7 @@
                 >Google</v-btn
             >
         </template>
-    </v-system-bar>
+
 </template>
 <script>
 export default {

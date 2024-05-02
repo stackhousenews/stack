@@ -26,7 +26,7 @@ class StorySerializer(serializers.ModelSerializer):
 
     def get_published(self, instance):
         if instance.published:
-            return instance.timelapsed
+            return instance.published.strftime("%c")
         else:
             return None
 

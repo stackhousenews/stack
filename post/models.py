@@ -41,6 +41,7 @@ class PostAttachment(models.Model):
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     body = models.TextField(blank=True, null=True)
+    abstract = models.TextField(blank=True, null=True)
     headline = models.TextField(blank=True, null=True)
 
 
@@ -64,6 +65,12 @@ class Post(models.Model):
     
     def created_at_formatted(self):
        return timesince(self.created_at)
+    
+    def __str__(self):
+        if self.headline:
+            return self.headline
+        else:
+            return "No title"
     
 
 class Trend(models.Model):
