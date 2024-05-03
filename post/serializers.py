@@ -34,7 +34,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_published(self, instance):
         if instance.created_at:
-            return instance.created_at.strftime("%c")
+            return instance.created_at.strftime("%A, %d %B %Y %H:%M")
         else:
             return None
 

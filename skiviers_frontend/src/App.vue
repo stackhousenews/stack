@@ -46,7 +46,7 @@
       </v-card>
 
     </v-card>
-   <v-card tile rounded="0" color="blue-grey"><v-card-text class="text-center caption">Stackhouse News 2024 - All Rights Reserved - <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/terms_of_service.html">Terms of Service</a> - <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/privacy_policy.html">Privacy Policy</a></v-card-text></v-card>
+   <v-card tile rounded="0" color="blue-grey"><v-card-text class="text-center caption">Stackhouse News 2024 | All Rights Reserved | <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/terms_of_service.html">Terms of Service</a> | <a href="https://stackhouse.s3.us-east-2.amazonaws.com/static/privacy_policy.html">Privacy Policy</a> | <a href="mailto:contact@stackhouse.news">Contact Us</a></v-card-text></v-card>
 
   </template>
 

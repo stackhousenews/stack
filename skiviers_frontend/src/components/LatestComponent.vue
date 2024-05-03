@@ -11,35 +11,35 @@
         <router-link :to="{ name: 'postview', params: { id: post.id }}">
                         
                 <v-card
-                    class=""
+                    class="mb-1"
                     color="#DAD4C6"
                     hover
                     height="100%"
                 >
-                    <div class="ml-2 mt-2 mb-1" style="font-size: 60%">
+                    <div class="ml-2 mt-2 mb-1" style="font-size: 70%">
                         
                         {{ post.published }}
 
-                        <v-chip variant="outlined" density="comfortable" size="x-small" class="ml-2 mt-0" v-for="tag in post.tags">
+                        <v-chip variant="outlined" density="comfortable" size="x-small" class="ml-2 mt-0 mb-1" v-for="tag in post.tags">
                             {{ tag.tag }}
                         </v-chip>
                         
                         
                         
                     </div>
-                    <v-card-title class="justify-end" style="line-height: 140%">
+                    <v-card-title class="justify-end mb-1" style="line-height: 160%">
                         <span
                             class="d-flex text-wrap mb-1 mr-2"
-                            style="font-family: 'Playfair Display', serif; font-size: 120%"
+                            style="font-family: 'Playfair Display', serif; font-size: 140%"
                             >{{ post.headline }}</span
                         >
 
                     </v-card-title>
 
-                    <v-card-subtitle>
+                    <v-card-subtitle style="line-height: 135%">
                         <span
                             class="d-flex text-wrap"
-                            style="font-family: 'Lato', sans-serif"
+                            style="font-family: 'Lato', sans-serif; font-size: 105%"
                             >{{ post.abstract }}</span
                         >
 

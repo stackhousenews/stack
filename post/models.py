@@ -51,6 +51,8 @@ class Post(models.Model):
     body = models.TextField(blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
     headline = models.TextField(blank=True, null=True)
+    image_url = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='article_assets',blank=True, null=True)
 
 
     attachments = models.ManyToManyField(PostAttachment, blank=True)

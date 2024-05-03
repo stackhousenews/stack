@@ -24,11 +24,17 @@
                         
 <v-card-text class="px-0 mb-0 pb-0 mt-1 text-caption ml-2"><span style="color: #546E7A;">{{ post.published }}</span></v-card-text>
 
+<v-img
 
-                        <v-card-text class="pl-2">
+  class="mx-2"
+  aspect-ratio="16/9"
+  cover
+  :src="post.image"
+></v-img>
+                        <v-card-text class="pl-2"  style="line-height: 140%">
                         <span
-                            class="d-flex text-wrap"
-                            style="font-family: 'Lato', sans-serif"
+                            class="d-flex text-wrap text-justify"
+                            style="font-family: 'Lato', sans-serif; font-size: 105%"
                             ><div v-html="post.body" /></span
                         >
 
@@ -67,8 +73,6 @@
 
                 </v-card></router-link></div>
         </v-col>
-
-
       
 </v-row>
 </template>
