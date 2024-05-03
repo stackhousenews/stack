@@ -15,7 +15,7 @@
         <v-avatar class="ms-2" color="surface-variant" size="32" variant="flat"
                 ><v-img
                     src="https://stackhouse.s3.us-east-2.amazonaws.com/static/stackhouse_blue.png"
-                    alt="Stackhouse"
+                    alt="Stackhouse News"
                 ></v-img
             ></v-avatar>
             <a
