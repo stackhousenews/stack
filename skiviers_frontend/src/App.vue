@@ -35,7 +35,7 @@
         style="margin-top: -64px;"
         tile
       >
-        <v-sheet color="#DAD4C6" class="px-4 py-2">
+        <v-sheet color="#DAD4C6" class="px-4 py-2 pb-6">
 
 
           <RouterView :key='$route.fullPath' />

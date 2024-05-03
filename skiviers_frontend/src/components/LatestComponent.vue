@@ -16,7 +16,7 @@
                     hover
                     height="100%"
                 >
-                    <div class="ml-2 mt-2 mb-1" style="font-size: 70%">
+                    <v-card-text class="pb-0" style="font-size: 70%">
                         
                         {{ post.published }}
 
@@ -26,7 +26,7 @@
                         
                         
                         
-                    </div>
+                    </v-card-text>
                     <v-card-title class="justify-end mb-1" style="line-height: 160%">
                         <span
                             class="d-flex text-wrap mb-1 mr-2"

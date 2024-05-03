@@ -25,6 +25,7 @@
     "pinia": "^2.1.7",
     "vite-plugin-vuetify": "^2.0.1",
     "vue": "^3.4.15",
+    "vue-meta": "^2.4.0",
     "vue-router": "^4.2.5",
     "vuetify": "^3.5.4"
   },

@@ -84,6 +84,24 @@ export default {
   name: 'PostView',
   components: {},
 
+
+  metaInfo() {
+    return {
+      title: 'oi',  // This sets the page title
+      meta: [
+        { property: 'og:title', content: 'My Article Title' },
+        { property: 'og:description', content: 'Here is a short summary of my article.' },
+        { property: 'og:image', content: 'https://example.com/path/to/your-image.jpg' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:site', content: '@yourusername' },
+        { name: 'twitter:title', content: 'My Article Title' },
+        { name: 'twitter:description', content: 'Here is a short summary of my article.' },
+        { name: 'twitter:image', content: 'https://example.com/path/to/your-image.jpg' }
+      ]
+    };
+  },
+
+
   data() {
     return {
       post:null,
