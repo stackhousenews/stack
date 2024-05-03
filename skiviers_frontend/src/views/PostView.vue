@@ -3,15 +3,29 @@
 
         <v-col cols="12" md="7">
 
-          <router-link to="/"><v-btn variant="text" class="mb-1 ml-2">Home</v-btn></router-link>
+          <router-link to="/"><v-btn variant="outlined" size="small" class="mb-1 ml-2">Home</v-btn></router-link>
 <v-card color="transparent" flat>
-      <v-card-title class="justify-end mb-2" style="line-height: 240%">
+
+
+  <v-card-text class="px-0 mb-0 pb-0 mt-1">
+
+<v-chip color="blue-grey" density="comfortable" size="small" class="ml-2 mt-0" v-for="tag in post.tags">
+      {{ tag.tag }}
+  </v-chip>
+</v-card-text>
+
+
+  <v-card-title class="justify-end mb-2" style="line-height: 240%">
                         <span
                             class="d-flex text-wrap"
                             style="font-family: 'Playfair Display', serif; font-size: 200%"
                             >{{ post.headline }}</span
-                        ></v-card-title>      
-                        <v-card-text class="pl-2 mt-2">
+                        ></v-card-title>
+                        
+<v-card-text class="px-0 mb-0 pb-0 mt-1 text-caption ml-2"><span style="color: #546E7A;">{{ post.published }}</span></v-card-text>
+
+
+                        <v-card-text class="pl-2">
                         <span
                             class="d-flex text-wrap"
                             style="font-family: 'Lato', sans-serif"
@@ -19,6 +33,8 @@
                         >
 
                     </v-card-text>
+
+
 </v-card>
 
 

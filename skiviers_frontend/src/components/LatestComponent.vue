@@ -16,8 +16,16 @@
                     hover
                     height="100%"
                 >
-                    <div class="ml-2 mt-2" style="font-size: 60%">
+                    <div class="ml-2 mt-2 mb-1" style="font-size: 60%">
+                        
                         {{ post.published }}
+
+                        <v-chip variant="outlined" density="comfortable" size="x-small" class="ml-2 mt-0" v-for="tag in post.tags">
+                            {{ tag.tag }}
+                        </v-chip>
+                        
+                        
+                        
                     </div>
                     <v-card-title class="justify-end" style="line-height: 140%">
                         <span

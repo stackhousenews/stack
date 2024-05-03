@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from user_account.serializers import UserSerializer
 
-from .models import Post, PostAttachment, Comment, Trend
+from .models import Post, PostAttachment, Comment, Trend, Tag
 
 
 class PostAttachmentSerializer(serializers.ModelSerializer):
@@ -10,9 +10,23 @@ class PostAttachmentSerializer(serializers.ModelSerializer):
         model = PostAttachment
         fields = ('id', 'get_image',)
 
+class TagSerializer(serializers.ModelSerializer):
+    tag = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Tag
+        exclude = ()
+
+    def get_tag(self, instance):
+        if instance.tag:
+            return instance.tag
+        else:
+            return None
+
 
 class PostSerializer(serializers.ModelSerializer):
     published = serializers.SerializerMethodField()
+    tags = TagSerializer(read_only=True, many=True)
     
     class Meta:
         model = Post

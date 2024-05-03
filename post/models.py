@@ -37,6 +37,14 @@ class PostAttachment(models.Model):
         else:
             return ''
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=255)
+
+    def __str__(self):
+        if self.tag:
+            return self.tag
+        else:
+            return "No tag"
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -56,6 +64,7 @@ class Post(models.Model):
     comments_count = models.IntegerField(default=0)
 
     reported_by_users = models.ManyToManyField(User, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="post_tag")
 
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
@@ -76,3 +85,4 @@ class Post(models.Model):
 class Trend(models.Model):
     hashtag = models.CharField(max_length=255)
     occurences = models.IntegerField()
+
