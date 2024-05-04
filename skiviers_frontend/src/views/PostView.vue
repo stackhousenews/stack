@@ -96,7 +96,7 @@ export default {
       content: this.post.abstract,
     },
 
-
+{name: "og:type", content: "website"},
           // Twitter Card
           {name: 'twitter:card', content: 'summary_large_image'},
           {name: 'twitter:site', content: '@StackhouseNews'},

@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from user_account.views import activateemail
 from .views import IndexTemplateView
-from django.views.static import serve
 
 urlpatterns = [
     path('api/', include('user_account.urls')),
@@ -17,10 +16,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
-        re_path(r'^robots\.txt$', serve, {
-        'path': 'robots.txt',
-        'document_root': settings.BASE_DIR,
-    }),
 ]
 
 
