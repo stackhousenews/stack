@@ -1,0 +1,33 @@
+{
+  "_chunk-yVxbj29m.js": {
+    "file": "chunks/chunk-yVxbj29m.js"
+  },
+  "src/main.js": {
+    "css": [
+      "assets/static/main.PKIbdRsA.css"
+    ],
+    "file": "bundle3.js",
+    "imports": [
+      "_chunk-yVxbj29m.js"
+    ],
+    "isEntry": true,
+    "src": "src/main.js"
+  },
+  "virtual:@brillout/vite-plugin-server-entry:serverEntry": {
+    "dynamicImports": [
+      "virtual:vike:pageConfigValuesAll:server:/pages"
+    ],
+    "file": "bundle2.js",
+    "isEntry": true,
+    "src": "virtual:@brillout/vite-plugin-server-entry:serverEntry"
+  },
+  "virtual:vike:pageConfigValuesAll:server:/pages": {
+    "file": "bundle.js",
+    "imports": [
+      "_chunk-yVxbj29m.js"
+    ],
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "virtual:vike:pageConfigValuesAll:server:/pages"
+  }
+}

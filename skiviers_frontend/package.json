@@ -24,6 +24,8 @@
     "caniuse-lite": "^1.0.30001600",
     "openai": "^4.28.0",
     "pinia": "^2.1.7",
+    "vike": "^0.4.171",
+    "vike-vue": "^0.6.5",
     "vite-plugin-vuetify": "^2.0.1",
     "vue": "^3.4.15",
     "vue-3-meta": "^2.4.0",
