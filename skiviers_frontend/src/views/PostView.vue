@@ -1,6 +1,9 @@
 <template>
       <v-row dense v-if="post">
 
+
+
+
         <v-col cols="12" md="7">
 
           <router-link to="/"><v-btn variant="outlined" size="small" class="mb-1 ml-2">Home</v-btn></router-link>
@@ -22,7 +25,12 @@
                             >{{ post.headline }}</span
                         ></v-card-title>
                         
-<v-card-text class="px-0 mb-0 pb-0 mt-1 text-caption ml-2"><span style="color: #546E7A;">{{ post.published }}</span></v-card-text>
+                        <v-card-text class="px-0 mb-0 pb-0 mt-1 text-caption ml-2"><span style="color: #546E7A;">{{ post.published }}</span></v-card-text>
+<v-card-text class="px-0 mb-0 pb-0 ml-2 mt-0 mb-1"><span class="text-caption">Share: </span><s-twitter
+    :share-options="shareOptions"
+  >
+  <v-btn size="x-small" color="blue-grey-darken-4" class="pa-0 mb-1"><font-awesome-icon icon="fa-brands fa-x-twitter" class="ma-0"/></v-btn>
+  </s-twitter></v-card-text>
 
 <v-img
 
@@ -80,6 +88,7 @@
 <script>
 import axios from 'axios';
 import { useHead } from '@unhead/vue'
+import { STwitter } from 'vue-socials'
 
 export default {
   name: 'PostView',
@@ -110,20 +119,24 @@ export default {
           {property: 'og:site_name', content: 'Stackhouse News'},
           {property: 'og:image', content:  this.post.image},
           {property: 'og:description', content: this.post.abstract}
-
-
-
-
-
-
   ],
-})
+}),
+
+this.shareOptions= {
+          url: 'https://127.0.0.0:8000/'+this.$route.path,
+          text: this.post.headline,
+          via: 'StackhouseNews',
         }
+        },
     },
 
 
   data() {
     return {
+
+      shareOptions: {},
+
+
       post:null,
       latest_posts:[],
       currentRoute: null,

@@ -29,6 +29,7 @@
     "vue-3-meta": "^2.4.0",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.2.5",
+    "vue-socials": "^2.0.5",
     "vuetify": "^3.5.4"
   },
   "devDependencies": {

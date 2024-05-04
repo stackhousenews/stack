@@ -6,6 +6,7 @@ import axios from 'axios';
 import './index.css';
 
 import { createHead } from '@unhead/vue'
+import VueSocials from 'vue-socials';
 
 const head = createHead()
 
@@ -37,6 +38,7 @@ app.use(createPinia());
 app.use(router, axios);
 app.use(vuetify);
 app.use(head);
+app.use(VueSocials);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
