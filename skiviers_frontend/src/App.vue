@@ -1,4 +1,5 @@
 <template>
+
     <v-card rounded="0" tile flat color="#DAD4C6" image="https://images.unsplash.com/photo-1714508862788-44e45c4315d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
      
       <v-toolbar
@@ -52,11 +53,22 @@
 
 <script>
 import SystemBarComponent from '@/components/App/SystemBarComponent.vue';
+import { useHead } from '@unhead/vue'
 
 export default {
-  setup() {
 
-    document.title = 'Stackhouse | Scaling Truth, Scoping Tomorrow';
+
+
+  setup() {
+    useHead({
+  title: 'My Page',
+  meta: [
+    {
+      name: 'description',
+      content: 'My page description',
+    },
+  ],
+})
 
     return {
 

@@ -79,27 +79,46 @@
 
 <script>
 import axios from 'axios';
+import { useHead } from '@unhead/vue'
 
 export default {
   name: 'PostView',
+
   components: {},
 
+  watch: {
+        post: function(value) {
+          useHead({
+  title: this.post.headline,
+  meta: [
+    {
+      name: 'description',
+      content: this.post.abstract,
+    },
 
-  metaInfo() {
-    return {
-      title: 'oi',  // This sets the page title
-      meta: [
-        { property: 'og:title', content: 'My Article Title' },
-        { property: 'og:description', content: 'Here is a short summary of my article.' },
-        { property: 'og:image', content: 'https://example.com/path/to/your-image.jpg' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:site', content: '@yourusername' },
-        { name: 'twitter:title', content: 'My Article Title' },
-        { name: 'twitter:description', content: 'Here is a short summary of my article.' },
-        { name: 'twitter:image', content: 'https://example.com/path/to/your-image.jpg' }
-      ]
-    };
-  },
+
+          // Twitter Card
+          {name: 'twitter:card', content: 'summary'},
+          {name: 'twitter:title', content: this.post.headline},
+          {name: 'twitter:description', content: this.post.abstract},
+          // image must be an absolute path
+          {name: 'twitter:image', content: this.post.image},
+          // Facebook OpenGraph
+          {property: 'og:title', content: this.post.headline},
+          {property: 'og:site_name', content: 'Stackhouse News'},
+          {property: 'og:type', content: 'https://stackhouse.news'},
+          {property: 'og:image', content:  this.post.image},
+          {property: 'og:description', content: this.post.abstract}
+
+
+
+
+
+
+  ],
+})
+        }
+    },
 
 
   data() {

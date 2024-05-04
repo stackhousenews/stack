@@ -5,6 +5,11 @@ import axios from 'axios';
 
 import './index.css';
 
+import { createHead } from '@unhead/vue'
+
+const head = createHead()
+
+
 // Vuetify
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
@@ -27,9 +32,11 @@ const vuetify = createVuetify({
   directives,
 });
 
+
 app.use(createPinia());
 app.use(router, axios);
 app.use(vuetify);
+app.use(head);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
