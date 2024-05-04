@@ -1886,7 +1886,7 @@ _sfc_main.setup = (props, ctx) => {
 };
 const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender]]);
 const head = createHead();
-axios.defaults.baseURL = "http://127.0.0.1:8000";
+axios.defaults.baseURL = "https://stackhouse.news";
 library.add(faXTwitter);
 const app = createApp(App);
 const vuetify = createVuetify({
