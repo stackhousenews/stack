@@ -1,4 +1,4 @@
-import { onRenderHtml } from "vike-vue/renderer/onRenderHtml";
+import { onRenderHtml } from "../skiviers_frontend/node_modules/vike-vue/dist/renderer/onRenderHtml";
 import { i as import_1 } from "./chunks/chunk-OlMhHuCa.js";
 import "axios";
 import "vue";
