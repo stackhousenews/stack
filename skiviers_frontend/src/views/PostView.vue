@@ -108,7 +108,6 @@ export default {
           // Facebook OpenGraph
           {property: 'og:title', content: this.post.headline},
           {property: 'og:site_name', content: 'Stackhouse News'},
-          {property: 'og:type', content: 'https://stackhouse.news'},
           {property: 'og:image', content:  this.post.image},
           {property: 'og:description', content: this.post.abstract}
 
