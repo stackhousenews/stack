@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '../../pages/HomeView.vue';
+import PostView from '../../pages/PostView.vue';
 import FeedView from '../views/FeedView.vue';
 import SearchView from '../views/SearchView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import EditProfileView from '../views/EditProfileView.vue';
 import EditPasswordView from '../views/EditPasswordView.vue';
-import PostView from '../views/PostView.vue';
 import NotificationsView from '../views/NotificationsView.vue';
 
 const router = createRouter({

@@ -434,578 +434,11 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
 const _sfc_setup$9 = _sfc_main$9.setup;
 _sfc_main$9.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/HomeView.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/HomeView.vue");
   return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
 };
 const HomeView = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["ssrRender", _sfc_ssrRender$9]]);
 const _sfc_main$8 = {
-  name: "FeedView",
-  components: {},
-  data() {
-    return {
-      posts: [],
-      body: ""
-    };
-  },
-  mounted() {
-    this.getFeed();
-  },
-  methods: {
-    getFeed() {
-      axios.get("/api/posts/").then((response) => {
-        console.log("data", response.data);
-        this.posts = response.data;
-      }).catch((error) => {
-        console.log("error", error);
-      });
-    },
-    deletePost(id) {
-      this.posts = this.posts.filter((post) => post.id !== id);
-    }
-  }
-};
-function _sfc_ssrRender$8(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-center col-span-3 space-y-4"><div class="bg-white border border-gray-200 rounded-lg"></div><!--[-->`);
-  ssrRenderList($data.posts, (post) => {
-    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg"></div>`);
-  });
-  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4"></div></div>`);
-}
-const _sfc_setup$8 = _sfc_main$8.setup;
-_sfc_main$8.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/FeedView.vue");
-  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
-};
-const FeedView = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["ssrRender", _sfc_ssrRender$8]]);
-const _sfc_main$7 = {
-  name: "SearchView",
-  components: {},
-  data() {
-    return {
-      query: "",
-      users: [],
-      posts: []
-    };
-  },
-  methods: {
-    submitForm() {
-      console.log("submitForm", this.query);
-      axios.post("/api/search/", {
-        query: this.query
-      }).then((response) => {
-        console.log("response:", response.data);
-        this.users = response.data.users;
-        this.posts = response.data.posts;
-      }).catch((error) => {
-        console.log("error:", error);
-      });
-    }
-  }
-};
-function _sfc_ssrRender$7(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  const _component_RouterLink = resolveComponent("RouterLink");
-  const _component_FeedItem = resolveComponent("FeedItem");
-  const _component_PeopleYouMayKnow = resolveComponent("PeopleYouMayKnow");
-  const _component_Trends = resolveComponent("Trends");
-  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-left col-span-3 space-y-4"><div class="bg-white border border-gray-200 rounded-lg"><form class="p-4 flex space-x-4"><input${ssrRenderAttr("value", $data.query)} type="search" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What are you looking for?"><button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg></button></form></div>`);
-  if ($data.users.length) {
-    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-4 gap-4"><!--[-->`);
-    ssrRenderList($data.users, (user) => {
-      _push(`<div class="p-4 text-center bg-gray-100 rounded-lg"><img${ssrRenderAttr("src", user.get_avatar)} class="mb-6 rounded-full"><p><strong>`);
-      _push(ssrRenderComponent(_component_RouterLink, {
-        to: { name: "profile", params: { id: user.id } }
-      }, {
-        default: withCtx((_, _push2, _parent2, _scopeId) => {
-          if (_push2) {
-            _push2(`${ssrInterpolate(user.name)}`);
-          } else {
-            return [
-              createTextVNode(toDisplayString(user.name), 1)
-            ];
-          }
-        }),
-        _: 2
-      }, _parent));
-      _push(`</strong></p><div class="mt-6 flex space-x-8 justify-around"><p class="text-xs text-gray-500">${ssrInterpolate(user.friends_count)} friends</p><p class="text-xs text-gray-500">${ssrInterpolate(user.posts_count)} posts</p></div></div>`);
-    });
-    _push(`<!--]--></div>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`<!--[-->`);
-  ssrRenderList($data.posts, (post) => {
-    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg">`);
-    _push(ssrRenderComponent(_component_FeedItem, { post }, null, _parent));
-    _push(`</div>`);
-  });
-  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4">`);
-  _push(ssrRenderComponent(_component_PeopleYouMayKnow, null, null, _parent));
-  _push(ssrRenderComponent(_component_Trends, null, null, _parent));
-  _push(`</div></div>`);
-}
-const _sfc_setup$7 = _sfc_main$7.setup;
-_sfc_main$7.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/SearchView.vue");
-  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
-};
-const SearchView = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["ssrRender", _sfc_ssrRender$7]]);
-const useUserStore = defineStore({
-  id: "user",
-  state: () => ({
-    user: {
-      isAuthenticated: false,
-      id: null,
-      name: null,
-      email: null,
-      access: null,
-      refresh: null,
-      avatar: null
-    }
-  }),
-  actions: {
-    initStore() {
-      console.log("initStore", localStorage.getItem("user.access"));
-      if (localStorage.getItem("user.access")) {
-        console.log("User has access!");
-        this.user.access = localStorage.getItem("user.access");
-        this.user.refresh = localStorage.getItem("user.refresh");
-        this.user.id = localStorage.getItem("user.id");
-        this.user.name = localStorage.getItem("user.name");
-        this.user.email = localStorage.getItem("user.email");
-        this.user.avatar = localStorage.getItem("user.avatar");
-        this.user.isAuthenticated = true;
-        this.refreshToken();
-        console.log("Initialized user:", this.user);
-      }
-    },
-    setToken(data) {
-      console.log("setToken", data);
-      this.user.access = data.access;
-      this.user.refresh = data.refresh;
-      this.user.isAuthenticated = true;
-      localStorage.setItem("user.access", data.access);
-      localStorage.setItem("user.refresh", data.refresh);
-      console.log("user.access: ", localStorage.getItem("user.access"));
-    },
-    removeToken() {
-      console.log("removeToken");
-      this.user.refresh = null;
-      this.user.access = null;
-      this.user.isAuthenticated = false;
-      this.user.id = null;
-      this.user.name = null;
-      this.user.email = null;
-      this.user.avatar = null;
-      localStorage.setItem("user.access", "");
-      localStorage.setItem("user.refresh", "");
-      localStorage.setItem("user.id", "");
-      localStorage.setItem("user.name", "");
-      localStorage.setItem("user.email", "");
-      localStorage.setItem("user.avatar", "");
-    },
-    setUserInfo(user) {
-      console.log("setUserInfo", user);
-      this.user.id = user.id;
-      this.user.name = user.name;
-      this.user.email = user.email;
-      this.user.avatar = user.avatar;
-      localStorage.setItem("user.id", this.user.id);
-      localStorage.setItem("user.name", this.user.name);
-      localStorage.setItem("user.email", this.user.email);
-      localStorage.setItem("user.avatar", this.user.avatar);
-      console.log("User", this.user);
-    },
-    refreshToken() {
-      axios.get("/api/is_authenticated/").then((response) => {
-        this.user.access = response.data.message;
-        localStorage.setItem("user.access", response.data.message);
-        axios.defaults.headers.common.Authorization = `Bearer ${response.data.message}`;
-      }).catch((error) => {
-        console.log(error);
-        this.removeToken();
-      });
-    }
-  }
-});
-const useToastStore = defineStore({
-  id: "toast",
-  state: () => ({
-    ms: 0,
-    message: "",
-    classes: "",
-    isVisible: false
-  }),
-  actions: {
-    showToast(ms, message, classes) {
-      this.ms = parseInt(ms);
-      this.message = message;
-      this.classes = classes;
-      this.isVisible = true;
-      setTimeout(() => {
-        this.classes += " -translate-y-28";
-      }, 10);
-      setTimeout(() => {
-        this.classes = this.classes.replace("-translate-y-28", "");
-      }, this.ms - 500);
-      setTimeout(() => {
-        this.isVisible = false;
-      }, this.ms);
-    }
-  }
-});
-const _sfc_main$6 = {
-  name: "FeedView",
-  setup() {
-    const userStore = useUserStore();
-    const toastStore = useToastStore();
-    return {
-      userStore,
-      toastStore
-    };
-  },
-  components: {},
-  data() {
-    return {
-      posts: [],
-      user: {
-        id: ""
-      },
-      can_send_friendship_request: null
-    };
-  },
-  mounted() {
-    this.getFeed();
-  },
-  watch: {
-    "$route.params.id": {
-      handler() {
-        this.getFeed();
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-  methods: {
-    deletePost(id) {
-      this.posts = this.posts.filter((post) => post.id !== id);
-    },
-    sendDirectMessage() {
-      console.log("sendDirectMessage");
-      axios.get(`/api/chat/${this.$route.params.id}/get-or-create/`).then((response) => {
-        console.log(response.data);
-        this.$router.push("/chat");
-      }).catch((error) => {
-        console.log("error", error);
-      });
-    },
-    sendFriendshipRequest() {
-      axios.post(`/api/friends/${this.$route.params.id}/request/`).then((response) => {
-        console.log("data", response.data);
-        this.can_send_friendship_request = false;
-        if (response.data.message === "request already sent") {
-          this.toastStore.showToast(
-            5e3,
-            "The request has already been sent!",
-            "bg-red-300"
-          );
-        } else {
-          this.toastStore.showToast(5e3, "The request was sent!", "bg-emerald-300");
-        }
-      }).catch((error) => {
-        console.log("error", error);
-      });
-    },
-    getFeed() {
-      axios.get(`/api/posts/profile/${this.$route.params.id}/`).then((response) => {
-        console.log("data", response.data);
-        this.posts = response.data.posts;
-        this.user = response.data.user;
-        this.can_send_friendship_request = response.data.can_send_friendship_request;
-      }).catch((error) => {
-        console.log("error", error);
-      });
-    },
-    logout() {
-      console.log("Log out");
-      this.userStore.removeToken();
-      this.$router.push("/login");
-    }
-  }
-};
-function _sfc_ssrRender$6(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  const _component_RouterLink = resolveComponent("RouterLink");
-  const _component_FeedForm = resolveComponent("FeedForm");
-  const _component_FeedItem = resolveComponent("FeedItem");
-  const _component_PeopleYouMayKnow = resolveComponent("PeopleYouMayKnow");
-  const _component_Trends = resolveComponent("Trends");
-  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-left col-span-1"><div class="p-4 bg-white border border-gray-200 text-center rounded-lg"><img${ssrRenderAttr("src", $data.user.get_avatar)} class="mb-6 rounded-full"><p><strong>${ssrInterpolate($data.user.name)}</strong></p>`);
-  if ($data.user.id) {
-    _push(`<div class="mt-6 flex space-x-8 justify-around">`);
-    _push(ssrRenderComponent(_component_RouterLink, {
-      to: { name: "friends", params: { id: $data.user.id } },
-      class: "text-xs text-gray-500"
-    }, {
-      default: withCtx((_, _push2, _parent2, _scopeId) => {
-        if (_push2) {
-          _push2(`${ssrInterpolate($data.user.friends_count)} friends`);
-        } else {
-          return [
-            createTextVNode(toDisplayString($data.user.friends_count) + " friends", 1)
-          ];
-        }
-      }),
-      _: 1
-    }, _parent));
-    _push(`<p class="text-xs text-gray-500">${ssrInterpolate($data.user.posts_count)} posts</p></div>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`<div class="mt-6">`);
-  if ($setup.userStore.user.id !== $data.user.id && $data.can_send_friendship_request) {
-    _push(`<button class="inline-block py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"> Send friendship request </button>`);
-  } else {
-    _push(`<!---->`);
-  }
-  if ($setup.userStore.user.id !== $data.user.id) {
-    _push(`<button class="inline-block mt-4 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"> Send direct message </button>`);
-  } else {
-    _push(`<!---->`);
-  }
-  if ($setup.userStore.user.id === $data.user.id) {
-    _push(ssrRenderComponent(_component_RouterLink, {
-      class: "inline-block mr-2 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg",
-      to: "/profile/edit"
-    }, {
-      default: withCtx((_, _push2, _parent2, _scopeId) => {
-        if (_push2) {
-          _push2(` Edit profile `);
-        } else {
-          return [
-            createTextVNode(" Edit profile ")
-          ];
-        }
-      }),
-      _: 1
-    }, _parent));
-  } else {
-    _push(`<!---->`);
-  }
-  if ($setup.userStore.user.id === $data.user.id) {
-    _push(`<button class="inline-block py-4 px-3 bg-red-600 text-xs text-white rounded-lg"> Log out </button>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`</div></div></div><div class="main-center col-span-2 space-y-4">`);
-  if ($setup.userStore.user.id === $data.user.id) {
-    _push(`<div class="bg-white border border-gray-200 rounded-lg">`);
-    _push(ssrRenderComponent(_component_FeedForm, {
-      user: $data.user,
-      posts: $data.posts
-    }, null, _parent));
-    _push(`</div>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`<!--[-->`);
-  ssrRenderList($data.posts, (post) => {
-    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg">`);
-    _push(ssrRenderComponent(_component_FeedItem, {
-      post,
-      onDeletePost: $options.deletePost
-    }, null, _parent));
-    _push(`</div>`);
-  });
-  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4">`);
-  _push(ssrRenderComponent(_component_PeopleYouMayKnow, null, null, _parent));
-  _push(ssrRenderComponent(_component_Trends, null, null, _parent));
-  _push(`</div></div>`);
-}
-const _sfc_setup$6 = _sfc_main$6.setup;
-_sfc_main$6.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/ProfileView.vue");
-  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
-};
-const ProfileView = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["ssrRender", _sfc_ssrRender$6]]);
-const _sfc_main$5 = {
-  setup() {
-    const toastStore = useToastStore();
-    const userStore = useUserStore();
-    return {
-      toastStore,
-      userStore
-    };
-  },
-  data() {
-    return {
-      form: {
-        email: this.userStore.user.email,
-        name: this.userStore.user.name
-      },
-      errors: []
-    };
-  },
-  methods: {
-    submitForm() {
-      this.errors = [];
-      if (this.form.email === "") {
-        this.errors.push("Your e-mail is missing");
-      }
-      if (this.form.name === "") {
-        this.errors.push("Your name is missing");
-      }
-      if (this.errors.length === 0) {
-        const formData = new FormData();
-        formData.append("avatar", this.$refs.file.files[0]);
-        formData.append("name", this.form.name);
-        formData.append("email", this.form.email);
-        axios.post("/api/editprofile/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        }).then((response) => {
-          if (response.data.message === "information updated") {
-            this.toastStore.showToast(
-              5e3,
-              "The information was saved",
-              "bg-emerald-500"
-            );
-            this.userStore.setUserInfo({
-              id: this.userStore.user.id,
-              name: this.form.name,
-              email: this.form.email,
-              avatar: response.data.user.get_avatar
-            });
-            this.$router.back();
-          } else {
-            this.toastStore.showToast(
-              5e3,
-              `${response.data.message}. Please try again`,
-              "bg-red-300"
-            );
-          }
-        }).catch((error) => {
-          console.log("error", error);
-        });
-      }
-    }
-  }
-};
-function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  const _component_RouterLink = resolveComponent("RouterLink");
-  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-2 gap-4" }, _attrs))}><div class="main-left"><div class="p-12 bg-white border border-gray-200 rounded-lg"><h1 class="mb-6 text-2xl">Edit profile</h1><p class="mb-6 text-gray-500"> Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. </p>`);
-  _push(ssrRenderComponent(_component_RouterLink, {
-    to: "/profile/edit/password",
-    class: "underline"
-  }, {
-    default: withCtx((_, _push2, _parent2, _scopeId) => {
-      if (_push2) {
-        _push2(`Edit password`);
-      } else {
-        return [
-          createTextVNode("Edit password")
-        ];
-      }
-    }),
-    _: 1
-  }, _parent));
-  _push(`</div></div><div class="main-right"><div class="p-12 bg-white border border-gray-200 rounded-lg"><form class="space-y-6"><div><label>Name</label><br><input type="text"${ssrRenderAttr("value", $data.form.name)} placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>E-mail</label><br><input type="email"${ssrRenderAttr("value", $data.form.email)} placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>Avatar</label><br><input type="file"></div>`);
-  if ($data.errors.length > 0) {
-    _push(`<div class="bg-red-300 text-white rounded-lg p-6"><!--[-->`);
-    ssrRenderList($data.errors, (error) => {
-      _push(`<p>${ssrInterpolate(error)}</p>`);
-    });
-    _push(`<!--]--></div>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`<div><button class="py-4 px-6 bg-purple-600 text-white rounded-lg"> Save changes </button></div></form></div></div></div>`);
-}
-const _sfc_setup$5 = _sfc_main$5.setup;
-_sfc_main$5.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/EditProfileView.vue");
-  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
-};
-const EditProfileView = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["ssrRender", _sfc_ssrRender$5]]);
-const _sfc_main$4 = {
-  setup() {
-    const toastStore = useToastStore();
-    const userStore = useUserStore();
-    return {
-      toastStore,
-      userStore
-    };
-  },
-  data() {
-    return {
-      form: {
-        old_password: "",
-        new_password1: "",
-        new_password2: ""
-      },
-      errors: []
-    };
-  },
-  methods: {
-    submitForm() {
-      this.errors = [];
-      if (this.form.password1 !== this.form.password2) {
-        this.errors.push("The password does not match");
-      }
-      if (this.errors.length === 0) {
-        const formData = new FormData();
-        formData.append("old_password", this.form.old_password);
-        formData.append("new_password1", this.form.new_password1);
-        formData.append("new_password2", this.form.new_password2);
-        axios.post("/api/editpassword/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        }).then((response) => {
-          if (response.data.message === "success") {
-            this.toastStore.showToast(
-              5e3,
-              "The information was saved",
-              "bg-emerald-500"
-            );
-            this.$router.push(`/profile/${this.userStore.user.id}`);
-          } else {
-            const data = JSON.parse(response.data.message);
-            for (const key in data) {
-              this.errors.push(data[key][0].message);
-            }
-          }
-        }).catch((error) => {
-          console.log("error", error);
-        });
-      }
-    }
-  }
-};
-function _sfc_ssrRender$4(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
-  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-2 gap-4" }, _attrs))}><div class="main-left"><div class="p-12 bg-white border border-gray-200 rounded-lg"><h1 class="mb-6 text-2xl">Edit password</h1><p class="mb-6 text-gray-500">Here you can change your password!</p></div></div><div class="main-right"><div class="p-12 bg-white border border-gray-200 rounded-lg"><form class="space-y-6"><div><label>Old password</label><br><input type="password"${ssrRenderAttr("value", $data.form.old_password)} placeholder="Your old password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>New password</label><br><input type="password"${ssrRenderAttr("value", $data.form.new_password1)} placeholder="Your new password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>Repeat password</label><br><input type="password"${ssrRenderAttr("value", $data.form.new_password2)} placeholder="Repeat password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div>`);
-  if ($data.errors.length > 0) {
-    _push(`<div class="bg-red-300 text-white rounded-lg p-6"><!--[-->`);
-    ssrRenderList($data.errors, (error) => {
-      _push(`<p>${ssrInterpolate(error)}</p>`);
-    });
-    _push(`<!--]--></div>`);
-  } else {
-    _push(`<!---->`);
-  }
-  _push(`<div><button class="py-4 px-6 bg-purple-600 text-white rounded-lg"> Save changes </button></div></form></div></div></div>`);
-}
-const _sfc_setup$4 = _sfc_main$4.setup;
-_sfc_main$4.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/EditPasswordView.vue");
-  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
-};
-const EditPasswordView = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["ssrRender", _sfc_ssrRender$4]]);
-const _sfc_main$3 = {
   name: "PostView",
   components: {},
   watch: {
@@ -1080,7 +513,7 @@ const _sfc_main$3 = {
     }
   }
 };
-function _sfc_ssrRender$3(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+function _sfc_ssrRender$8(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
   const _component_v_row = resolveComponent("v-row");
   const _component_v_col = resolveComponent("v-col");
   const _component_router_link = resolveComponent("router-link");
@@ -1836,13 +1269,580 @@ function _sfc_ssrRender$3(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
     _push(`<!---->`);
   }
 }
+const _sfc_setup$8 = _sfc_main$8.setup;
+_sfc_main$8.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/PostView.vue");
+  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
+};
+const PostView = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["ssrRender", _sfc_ssrRender$8]]);
+const _sfc_main$7 = {
+  name: "FeedView",
+  components: {},
+  data() {
+    return {
+      posts: [],
+      body: ""
+    };
+  },
+  mounted() {
+    this.getFeed();
+  },
+  methods: {
+    getFeed() {
+      axios.get("/api/posts/").then((response) => {
+        console.log("data", response.data);
+        this.posts = response.data;
+      }).catch((error) => {
+        console.log("error", error);
+      });
+    },
+    deletePost(id) {
+      this.posts = this.posts.filter((post) => post.id !== id);
+    }
+  }
+};
+function _sfc_ssrRender$7(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-center col-span-3 space-y-4"><div class="bg-white border border-gray-200 rounded-lg"></div><!--[-->`);
+  ssrRenderList($data.posts, (post) => {
+    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg"></div>`);
+  });
+  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4"></div></div>`);
+}
+const _sfc_setup$7 = _sfc_main$7.setup;
+_sfc_main$7.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/FeedView.vue");
+  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
+};
+const FeedView = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["ssrRender", _sfc_ssrRender$7]]);
+const _sfc_main$6 = {
+  name: "SearchView",
+  components: {},
+  data() {
+    return {
+      query: "",
+      users: [],
+      posts: []
+    };
+  },
+  methods: {
+    submitForm() {
+      console.log("submitForm", this.query);
+      axios.post("/api/search/", {
+        query: this.query
+      }).then((response) => {
+        console.log("response:", response.data);
+        this.users = response.data.users;
+        this.posts = response.data.posts;
+      }).catch((error) => {
+        console.log("error:", error);
+      });
+    }
+  }
+};
+function _sfc_ssrRender$6(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  const _component_RouterLink = resolveComponent("RouterLink");
+  const _component_FeedItem = resolveComponent("FeedItem");
+  const _component_PeopleYouMayKnow = resolveComponent("PeopleYouMayKnow");
+  const _component_Trends = resolveComponent("Trends");
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-left col-span-3 space-y-4"><div class="bg-white border border-gray-200 rounded-lg"><form class="p-4 flex space-x-4"><input${ssrRenderAttr("value", $data.query)} type="search" class="p-4 w-full bg-gray-100 rounded-lg" placeholder="What are you looking for?"><button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg></button></form></div>`);
+  if ($data.users.length) {
+    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-4 gap-4"><!--[-->`);
+    ssrRenderList($data.users, (user) => {
+      _push(`<div class="p-4 text-center bg-gray-100 rounded-lg"><img${ssrRenderAttr("src", user.get_avatar)} class="mb-6 rounded-full"><p><strong>`);
+      _push(ssrRenderComponent(_component_RouterLink, {
+        to: { name: "profile", params: { id: user.id } }
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`${ssrInterpolate(user.name)}`);
+          } else {
+            return [
+              createTextVNode(toDisplayString(user.name), 1)
+            ];
+          }
+        }),
+        _: 2
+      }, _parent));
+      _push(`</strong></p><div class="mt-6 flex space-x-8 justify-around"><p class="text-xs text-gray-500">${ssrInterpolate(user.friends_count)} friends</p><p class="text-xs text-gray-500">${ssrInterpolate(user.posts_count)} posts</p></div></div>`);
+    });
+    _push(`<!--]--></div>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`<!--[-->`);
+  ssrRenderList($data.posts, (post) => {
+    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg">`);
+    _push(ssrRenderComponent(_component_FeedItem, { post }, null, _parent));
+    _push(`</div>`);
+  });
+  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4">`);
+  _push(ssrRenderComponent(_component_PeopleYouMayKnow, null, null, _parent));
+  _push(ssrRenderComponent(_component_Trends, null, null, _parent));
+  _push(`</div></div>`);
+}
+const _sfc_setup$6 = _sfc_main$6.setup;
+_sfc_main$6.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/SearchView.vue");
+  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+};
+const SearchView = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["ssrRender", _sfc_ssrRender$6]]);
+const useUserStore = defineStore({
+  id: "user",
+  state: () => ({
+    user: {
+      isAuthenticated: false,
+      id: null,
+      name: null,
+      email: null,
+      access: null,
+      refresh: null,
+      avatar: null
+    }
+  }),
+  actions: {
+    initStore() {
+      console.log("initStore", localStorage.getItem("user.access"));
+      if (localStorage.getItem("user.access")) {
+        console.log("User has access!");
+        this.user.access = localStorage.getItem("user.access");
+        this.user.refresh = localStorage.getItem("user.refresh");
+        this.user.id = localStorage.getItem("user.id");
+        this.user.name = localStorage.getItem("user.name");
+        this.user.email = localStorage.getItem("user.email");
+        this.user.avatar = localStorage.getItem("user.avatar");
+        this.user.isAuthenticated = true;
+        this.refreshToken();
+        console.log("Initialized user:", this.user);
+      }
+    },
+    setToken(data) {
+      console.log("setToken", data);
+      this.user.access = data.access;
+      this.user.refresh = data.refresh;
+      this.user.isAuthenticated = true;
+      localStorage.setItem("user.access", data.access);
+      localStorage.setItem("user.refresh", data.refresh);
+      console.log("user.access: ", localStorage.getItem("user.access"));
+    },
+    removeToken() {
+      console.log("removeToken");
+      this.user.refresh = null;
+      this.user.access = null;
+      this.user.isAuthenticated = false;
+      this.user.id = null;
+      this.user.name = null;
+      this.user.email = null;
+      this.user.avatar = null;
+      localStorage.setItem("user.access", "");
+      localStorage.setItem("user.refresh", "");
+      localStorage.setItem("user.id", "");
+      localStorage.setItem("user.name", "");
+      localStorage.setItem("user.email", "");
+      localStorage.setItem("user.avatar", "");
+    },
+    setUserInfo(user) {
+      console.log("setUserInfo", user);
+      this.user.id = user.id;
+      this.user.name = user.name;
+      this.user.email = user.email;
+      this.user.avatar = user.avatar;
+      localStorage.setItem("user.id", this.user.id);
+      localStorage.setItem("user.name", this.user.name);
+      localStorage.setItem("user.email", this.user.email);
+      localStorage.setItem("user.avatar", this.user.avatar);
+      console.log("User", this.user);
+    },
+    refreshToken() {
+      axios.get("/api/is_authenticated/").then((response) => {
+        this.user.access = response.data.message;
+        localStorage.setItem("user.access", response.data.message);
+        axios.defaults.headers.common.Authorization = `Bearer ${response.data.message}`;
+      }).catch((error) => {
+        console.log(error);
+        this.removeToken();
+      });
+    }
+  }
+});
+const useToastStore = defineStore({
+  id: "toast",
+  state: () => ({
+    ms: 0,
+    message: "",
+    classes: "",
+    isVisible: false
+  }),
+  actions: {
+    showToast(ms, message, classes) {
+      this.ms = parseInt(ms);
+      this.message = message;
+      this.classes = classes;
+      this.isVisible = true;
+      setTimeout(() => {
+        this.classes += " -translate-y-28";
+      }, 10);
+      setTimeout(() => {
+        this.classes = this.classes.replace("-translate-y-28", "");
+      }, this.ms - 500);
+      setTimeout(() => {
+        this.isVisible = false;
+      }, this.ms);
+    }
+  }
+});
+const _sfc_main$5 = {
+  name: "FeedView",
+  setup() {
+    const userStore = useUserStore();
+    const toastStore = useToastStore();
+    return {
+      userStore,
+      toastStore
+    };
+  },
+  components: {},
+  data() {
+    return {
+      posts: [],
+      user: {
+        id: ""
+      },
+      can_send_friendship_request: null
+    };
+  },
+  mounted() {
+    this.getFeed();
+  },
+  watch: {
+    "$route.params.id": {
+      handler() {
+        this.getFeed();
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  methods: {
+    deletePost(id) {
+      this.posts = this.posts.filter((post) => post.id !== id);
+    },
+    sendDirectMessage() {
+      console.log("sendDirectMessage");
+      axios.get(`/api/chat/${this.$route.params.id}/get-or-create/`).then((response) => {
+        console.log(response.data);
+        this.$router.push("/chat");
+      }).catch((error) => {
+        console.log("error", error);
+      });
+    },
+    sendFriendshipRequest() {
+      axios.post(`/api/friends/${this.$route.params.id}/request/`).then((response) => {
+        console.log("data", response.data);
+        this.can_send_friendship_request = false;
+        if (response.data.message === "request already sent") {
+          this.toastStore.showToast(
+            5e3,
+            "The request has already been sent!",
+            "bg-red-300"
+          );
+        } else {
+          this.toastStore.showToast(5e3, "The request was sent!", "bg-emerald-300");
+        }
+      }).catch((error) => {
+        console.log("error", error);
+      });
+    },
+    getFeed() {
+      axios.get(`/api/posts/profile/${this.$route.params.id}/`).then((response) => {
+        console.log("data", response.data);
+        this.posts = response.data.posts;
+        this.user = response.data.user;
+        this.can_send_friendship_request = response.data.can_send_friendship_request;
+      }).catch((error) => {
+        console.log("error", error);
+      });
+    },
+    logout() {
+      console.log("Log out");
+      this.userStore.removeToken();
+      this.$router.push("/login");
+    }
+  }
+};
+function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  const _component_RouterLink = resolveComponent("RouterLink");
+  const _component_FeedForm = resolveComponent("FeedForm");
+  const _component_FeedItem = resolveComponent("FeedItem");
+  const _component_PeopleYouMayKnow = resolveComponent("PeopleYouMayKnow");
+  const _component_Trends = resolveComponent("Trends");
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-4 gap-4" }, _attrs))}><div class="main-left col-span-1"><div class="p-4 bg-white border border-gray-200 text-center rounded-lg"><img${ssrRenderAttr("src", $data.user.get_avatar)} class="mb-6 rounded-full"><p><strong>${ssrInterpolate($data.user.name)}</strong></p>`);
+  if ($data.user.id) {
+    _push(`<div class="mt-6 flex space-x-8 justify-around">`);
+    _push(ssrRenderComponent(_component_RouterLink, {
+      to: { name: "friends", params: { id: $data.user.id } },
+      class: "text-xs text-gray-500"
+    }, {
+      default: withCtx((_, _push2, _parent2, _scopeId) => {
+        if (_push2) {
+          _push2(`${ssrInterpolate($data.user.friends_count)} friends`);
+        } else {
+          return [
+            createTextVNode(toDisplayString($data.user.friends_count) + " friends", 1)
+          ];
+        }
+      }),
+      _: 1
+    }, _parent));
+    _push(`<p class="text-xs text-gray-500">${ssrInterpolate($data.user.posts_count)} posts</p></div>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`<div class="mt-6">`);
+  if ($setup.userStore.user.id !== $data.user.id && $data.can_send_friendship_request) {
+    _push(`<button class="inline-block py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"> Send friendship request </button>`);
+  } else {
+    _push(`<!---->`);
+  }
+  if ($setup.userStore.user.id !== $data.user.id) {
+    _push(`<button class="inline-block mt-4 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"> Send direct message </button>`);
+  } else {
+    _push(`<!---->`);
+  }
+  if ($setup.userStore.user.id === $data.user.id) {
+    _push(ssrRenderComponent(_component_RouterLink, {
+      class: "inline-block mr-2 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg",
+      to: "/profile/edit"
+    }, {
+      default: withCtx((_, _push2, _parent2, _scopeId) => {
+        if (_push2) {
+          _push2(` Edit profile `);
+        } else {
+          return [
+            createTextVNode(" Edit profile ")
+          ];
+        }
+      }),
+      _: 1
+    }, _parent));
+  } else {
+    _push(`<!---->`);
+  }
+  if ($setup.userStore.user.id === $data.user.id) {
+    _push(`<button class="inline-block py-4 px-3 bg-red-600 text-xs text-white rounded-lg"> Log out </button>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`</div></div></div><div class="main-center col-span-2 space-y-4">`);
+  if ($setup.userStore.user.id === $data.user.id) {
+    _push(`<div class="bg-white border border-gray-200 rounded-lg">`);
+    _push(ssrRenderComponent(_component_FeedForm, {
+      user: $data.user,
+      posts: $data.posts
+    }, null, _parent));
+    _push(`</div>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`<!--[-->`);
+  ssrRenderList($data.posts, (post) => {
+    _push(`<div class="p-4 bg-white border border-gray-200 rounded-lg">`);
+    _push(ssrRenderComponent(_component_FeedItem, {
+      post,
+      onDeletePost: $options.deletePost
+    }, null, _parent));
+    _push(`</div>`);
+  });
+  _push(`<!--]--></div><div class="main-right col-span-1 space-y-4">`);
+  _push(ssrRenderComponent(_component_PeopleYouMayKnow, null, null, _parent));
+  _push(ssrRenderComponent(_component_Trends, null, null, _parent));
+  _push(`</div></div>`);
+}
+const _sfc_setup$5 = _sfc_main$5.setup;
+_sfc_main$5.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/ProfileView.vue");
+  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+};
+const ProfileView = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["ssrRender", _sfc_ssrRender$5]]);
+const _sfc_main$4 = {
+  setup() {
+    const toastStore = useToastStore();
+    const userStore = useUserStore();
+    return {
+      toastStore,
+      userStore
+    };
+  },
+  data() {
+    return {
+      form: {
+        email: this.userStore.user.email,
+        name: this.userStore.user.name
+      },
+      errors: []
+    };
+  },
+  methods: {
+    submitForm() {
+      this.errors = [];
+      if (this.form.email === "") {
+        this.errors.push("Your e-mail is missing");
+      }
+      if (this.form.name === "") {
+        this.errors.push("Your name is missing");
+      }
+      if (this.errors.length === 0) {
+        const formData = new FormData();
+        formData.append("avatar", this.$refs.file.files[0]);
+        formData.append("name", this.form.name);
+        formData.append("email", this.form.email);
+        axios.post("/api/editprofile/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }).then((response) => {
+          if (response.data.message === "information updated") {
+            this.toastStore.showToast(
+              5e3,
+              "The information was saved",
+              "bg-emerald-500"
+            );
+            this.userStore.setUserInfo({
+              id: this.userStore.user.id,
+              name: this.form.name,
+              email: this.form.email,
+              avatar: response.data.user.get_avatar
+            });
+            this.$router.back();
+          } else {
+            this.toastStore.showToast(
+              5e3,
+              `${response.data.message}. Please try again`,
+              "bg-red-300"
+            );
+          }
+        }).catch((error) => {
+          console.log("error", error);
+        });
+      }
+    }
+  }
+};
+function _sfc_ssrRender$4(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  const _component_RouterLink = resolveComponent("RouterLink");
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-2 gap-4" }, _attrs))}><div class="main-left"><div class="p-12 bg-white border border-gray-200 rounded-lg"><h1 class="mb-6 text-2xl">Edit profile</h1><p class="mb-6 text-gray-500"> Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. Lorem ipsum dolor sit mate. </p>`);
+  _push(ssrRenderComponent(_component_RouterLink, {
+    to: "/profile/edit/password",
+    class: "underline"
+  }, {
+    default: withCtx((_, _push2, _parent2, _scopeId) => {
+      if (_push2) {
+        _push2(`Edit password`);
+      } else {
+        return [
+          createTextVNode("Edit password")
+        ];
+      }
+    }),
+    _: 1
+  }, _parent));
+  _push(`</div></div><div class="main-right"><div class="p-12 bg-white border border-gray-200 rounded-lg"><form class="space-y-6"><div><label>Name</label><br><input type="text"${ssrRenderAttr("value", $data.form.name)} placeholder="Your full name" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>E-mail</label><br><input type="email"${ssrRenderAttr("value", $data.form.email)} placeholder="Your e-mail address" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>Avatar</label><br><input type="file"></div>`);
+  if ($data.errors.length > 0) {
+    _push(`<div class="bg-red-300 text-white rounded-lg p-6"><!--[-->`);
+    ssrRenderList($data.errors, (error) => {
+      _push(`<p>${ssrInterpolate(error)}</p>`);
+    });
+    _push(`<!--]--></div>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`<div><button class="py-4 px-6 bg-purple-600 text-white rounded-lg"> Save changes </button></div></form></div></div></div>`);
+}
+const _sfc_setup$4 = _sfc_main$4.setup;
+_sfc_main$4.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/EditProfileView.vue");
+  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+};
+const EditProfileView = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["ssrRender", _sfc_ssrRender$4]]);
+const _sfc_main$3 = {
+  setup() {
+    const toastStore = useToastStore();
+    const userStore = useUserStore();
+    return {
+      toastStore,
+      userStore
+    };
+  },
+  data() {
+    return {
+      form: {
+        old_password: "",
+        new_password1: "",
+        new_password2: ""
+      },
+      errors: []
+    };
+  },
+  methods: {
+    submitForm() {
+      this.errors = [];
+      if (this.form.password1 !== this.form.password2) {
+        this.errors.push("The password does not match");
+      }
+      if (this.errors.length === 0) {
+        const formData = new FormData();
+        formData.append("old_password", this.form.old_password);
+        formData.append("new_password1", this.form.new_password1);
+        formData.append("new_password2", this.form.new_password2);
+        axios.post("/api/editpassword/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }).then((response) => {
+          if (response.data.message === "success") {
+            this.toastStore.showToast(
+              5e3,
+              "The information was saved",
+              "bg-emerald-500"
+            );
+            this.$router.push(`/profile/${this.userStore.user.id}`);
+          } else {
+            const data = JSON.parse(response.data.message);
+            for (const key in data) {
+              this.errors.push(data[key][0].message);
+            }
+          }
+        }).catch((error) => {
+          console.log("error", error);
+        });
+      }
+    }
+  }
+};
+function _sfc_ssrRender$3(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "max-w-7xl mx-auto grid grid-cols-2 gap-4" }, _attrs))}><div class="main-left"><div class="p-12 bg-white border border-gray-200 rounded-lg"><h1 class="mb-6 text-2xl">Edit password</h1><p class="mb-6 text-gray-500">Here you can change your password!</p></div></div><div class="main-right"><div class="p-12 bg-white border border-gray-200 rounded-lg"><form class="space-y-6"><div><label>Old password</label><br><input type="password"${ssrRenderAttr("value", $data.form.old_password)} placeholder="Your old password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>New password</label><br><input type="password"${ssrRenderAttr("value", $data.form.new_password1)} placeholder="Your new password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div><div><label>Repeat password</label><br><input type="password"${ssrRenderAttr("value", $data.form.new_password2)} placeholder="Repeat password" class="w-full mt-2 py-4 px-6 border border-gray-200 rounded-lg"></div>`);
+  if ($data.errors.length > 0) {
+    _push(`<div class="bg-red-300 text-white rounded-lg p-6"><!--[-->`);
+    ssrRenderList($data.errors, (error) => {
+      _push(`<p>${ssrInterpolate(error)}</p>`);
+    });
+    _push(`<!--]--></div>`);
+  } else {
+    _push(`<!---->`);
+  }
+  _push(`<div><button class="py-4 px-6 bg-purple-600 text-white rounded-lg"> Save changes </button></div></form></div></div></div>`);
+}
 const _sfc_setup$3 = _sfc_main$3.setup;
 _sfc_main$3.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/PostView.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/views/EditPasswordView.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const PostView = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["ssrRender", _sfc_ssrRender$3]]);
+const EditPasswordView = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["ssrRender", _sfc_ssrRender$3]]);
 const _sfc_main$2 = {
   name: "NotificationsView",
   data() {
