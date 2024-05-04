@@ -61,11 +61,11 @@ export default {
 
   setup() {
     useHead({
-  title: 'My Page',
+  title: 'Stackhouse News | Scaling Truth, Scoping Tomorrow',
   meta: [
     {
       name: 'description',
-      content: 'My page description',
+      content: 'Stackhouse News | Scaling Truth, Scoping Tomorrow',
     },
   ],
 })

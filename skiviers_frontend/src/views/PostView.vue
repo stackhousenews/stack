@@ -89,7 +89,7 @@ export default {
   watch: {
         post: function(value) {
           useHead({
-  title: this.post.headline,
+  title: 'Stackhouse News | ' + this.post.headline,
   meta: [
     {
       name: 'description',
@@ -98,7 +98,9 @@ export default {
 
 
           // Twitter Card
-          {name: 'twitter:card', content: 'summary'},
+          {name: 'twitter:card', content: 'summary_large_image'},
+          {name: 'twitter:site', content: '@StackhouseNews'},
+          {name: 'twitter:creator', content: '@StackhouseNews'},
           {name: 'twitter:title', content: this.post.headline},
           {name: 'twitter:description', content: this.post.abstract},
           // image must be an absolute path
