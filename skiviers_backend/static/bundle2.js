@@ -55,7 +55,7 @@ const pageFiles = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
   pageFilesList
 }, Symbol.toStringTag, { value: "Module" }));
 {
-  const assetsManifest = __VITE_ASSETS_MAP__;
+  const assetsManifest = ;
   const pluginManifest = {
     "version": "0.4.171",
     "usesClientRouter": false,
