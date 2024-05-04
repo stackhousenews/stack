@@ -123,7 +123,7 @@ export default {
 }),
 
 this.shareOptions= {
-          url: 'https://127.0.0.0:8000/'+this.$route.path,
+          url: 'https://stackhouse.news/'+this.$route.path,
           text: this.post.headline,
           via: 'StackhouseNews',
         }
