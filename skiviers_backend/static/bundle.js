@@ -1,21 +1,8 @@
 import { onRenderHtml } from "vike-vue/renderer/onRenderHtml";
-import { useSSRContext } from "vue";
-import { _ as _export_sfc } from "./chunks/chunk-yVxbj29m.js";
-const _sfc_main = {};
-function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
-  _push(`<!--[--><h1>Welcome</h1> This page is: <ul><li>Rendered to HTML.</li></ul><!--]-->`);
-}
-const _sfc_setup = _sfc_main.setup;
-_sfc_main.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/+Page.vue");
-  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
-};
-const _Page = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender]]);
-const import_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: _Page
-}, Symbol.toStringTag, { value: "Module" }));
+import { i as import_1 } from "./chunks/chunk-OlMhHuCa.js";
+import "axios";
+import "vue";
+import "vue/server-renderer";
 const configValuesImported = [
   {
     configName: "onRenderHtml",

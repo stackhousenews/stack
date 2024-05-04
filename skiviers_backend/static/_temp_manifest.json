@@ -1,6 +1,6 @@
 {
-  "_chunk-yVxbj29m.js": {
-    "file": "chunks/chunk-yVxbj29m.js"
+  "_chunk-OlMhHuCa.js": {
+    "file": "chunks/chunk-OlMhHuCa.js"
   },
   "src/main.js": {
     "css": [
@@ -8,7 +8,7 @@
     ],
     "file": "bundle3.js",
     "imports": [
-      "_chunk-yVxbj29m.js"
+      "_chunk-OlMhHuCa.js"
     ],
     "isEntry": true,
     "src": "src/main.js"
@@ -24,7 +24,7 @@
   "virtual:vike:pageConfigValuesAll:server:/pages": {
     "file": "bundle.js",
     "imports": [
-      "_chunk-yVxbj29m.js"
+      "_chunk-OlMhHuCa.js"
     ],
     "isDynamicEntry": true,
     "isEntry": true,
